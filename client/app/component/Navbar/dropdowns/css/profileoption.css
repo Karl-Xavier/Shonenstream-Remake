@@ -1,0 +1,43 @@
+.profile-option{
+  width: 120px;
+  height: auto;
+  padding: 10px;
+  background: #242424;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 10px;
+  z-index: 99;
+  position: absolute;
+  right: 80;
+  top: 100;
+}
+
+.profile-option ul {
+  width: 100%;
+  height: 100%;
+}
+
+.profile-option ul li {
+  width: 100%;
+  padding: 5px;
+}
+
+.profile-option ul li:hover{
+  color: #ee49fd;
+}
+
+.profile-option ul li a{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+@media screen and (max-width: 600px) {
+  .profile-option{
+    right: 10;
+    top: 80;
+  }
+}

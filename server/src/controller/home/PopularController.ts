@@ -1,11 +1,13 @@
 import { Request, Response } from "express";
 const FetchHTML = require('../../config/Cheerio')
+import { v4 } from "uuid";
 
 const url = 'https://animekai.to/home'
 
 async function PopularController(req: Request, res: Response): Promise<any> {
 
     interface PopularItem {
+        id: string;
         title?: string;
         imgURL?: string;
     }
@@ -29,6 +31,7 @@ async function PopularController(req: Request, res: Response): Promise<any> {
             const imgURL = match ? match[1].trim().replace(/['"]/g, '') : null
 
             popularAnime.push({
+                id: v4(),
                 title,
                 imgURL
             })

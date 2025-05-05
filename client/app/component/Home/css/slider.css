@@ -1,0 +1,30 @@
+.slider-card-stack{
+  position: relative;
+  height: 350px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.card-stack{
+  position: absolute;
+  width: 800px;
+  height: 100%;
+  transition: all .5s ease;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(211, 211, 211, .4);
+  border-radius: 10px;
+}
+
+.card-stack img{
+  width: 100%;
+  height: 100%;
+}
+
+@media screen and (max-width: 798px){
+  .slider-card-stack{
+    display: none;
+  }
+}

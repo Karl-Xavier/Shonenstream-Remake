@@ -1,0 +1,75 @@
+.top-today{
+  width: 100%;
+  height: max-content;
+}
+
+.top-today h2{
+  font-size: 1.2rem;
+  text-transform: uppercase;
+}
+
+.top-today-ul{
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+}
+
+.top-today-ul .ani-num{
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.top-today-ul li{
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  height: 100px;
+  background: #212121;
+  border-radius: 12px;
+}
+
+.top-today-ul li .today-content{
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 2fr 4fr;
+  gap: 10px;
+}
+
+.today-content .img-today{
+  width: 100%;
+  height: 100px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 0 0 20px 0;
+}
+
+.today-content .img-today img{
+  width: 70%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.today-content .text-today{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: flex-start;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.text-today p{
+  height: 38px;
+  overflow: hidden;
+}
+
+.text-today span{
+  font-style: italic;
+  font-weight: bold;
+  color: orange;
+  font-size: 12px;
+}

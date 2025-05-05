@@ -1,0 +1,86 @@
+.suggestion-box{
+  width: 300px;
+  height: 300px;
+  overflow-y: auto;
+  background: #242424;
+  border-radius: 10px;
+  padding: 10px;
+  position: absolute;
+  top: 100;
+  left: 350;
+  z-index: 99;
+}
+
+.suggestion-box::-webkit-scrollbar{
+  width: 5px;
+  background: transparent;
+}
+
+.suggestion-box::-webkit-scrollbar-thumb{
+  height: 2px;
+  background: #eee;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.suggestion-box ul{
+  width: 100%;
+  height: 100%;
+}
+
+.suggestion-box ul li{
+  width: 100%;
+  list-style-type: none;
+  font-size: 14px;
+  margin: 0 0 10px 0;
+}
+
+.suggestion-box ul li:last-child{
+  padding-bottom: 10px;
+}
+
+.suggestion-box ul li a{
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  gap: 10px;
+}
+
+.suggestion-box ul li a .text-content-div{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.text-content-div h3{
+  line-height: 15px;
+  height: 30px;
+  overflow: hidden;
+  font-size: 14px;
+}
+
+.text-content-div span{
+  font-size: 10px;
+  color: #ee49fdde;
+}
+
+.suggestion-box ul li a img{
+  border-radius: 5%;
+}
+
+@media screen and (max-width: 789px){
+  .suggestion-box{
+    width: 320px;
+    top: 140;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .suggestion-box{
+    left: 10;
+    top: 140px;
+  }
+}

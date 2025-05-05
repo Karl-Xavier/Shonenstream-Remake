@@ -1,0 +1,39 @@
+.recent-con{
+  width: 100%;
+  margin: 20px 0 10px 0;
+  height: auto;
+}
+
+.recent-con section.main-content{
+  width: 100%;
+  margin-top: 20px;
+  height: 100%;
+
+  h2{
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    margin-left: 20px;
+    font-weight: 600;
+  }
+}
+
+.main-content ul{
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+  padding: 20px;
+}
+
+@media screen and (max-width: 789px) {
+  .main-content ul{
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .main-content ul{
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

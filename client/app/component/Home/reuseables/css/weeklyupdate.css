@@ -1,0 +1,101 @@
+.weekly-schedule{
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+}
+
+.weekly-schedule h2{
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  text-align: right;
+  font-weight: bold;
+}
+
+.weekly-schedule .calendar{
+  width: 100%;
+  height: 100%;
+  margin-top: 10px;
+}
+
+.calendar .day-month-nav{
+  width: 100%;
+  height: auto;
+  margin: 0 0 10px 0;
+  background: #292828d3;
+  padding: 5px;
+  border-radius: 5px 5px 0 0;
+}
+
+.day-month-nav ul{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.day-month-nav ul li{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.day-month-nav ul li.active{
+  color: #ee4afd;
+}
+
+.day-month-nav ul li .month{
+  font-weight: 400;
+  font-size: 12px;
+}
+
+.day-month-ul{
+  width: 100%;
+  height: 500px;
+  overflow-y: auto;
+}
+
+.day-month-ul::-webkit-scrollbar{
+  width: 4px;
+  background: transparent;
+}
+
+.day-month-ul::-webkit-scrollbar-thumb{
+  height: 5px;
+  background: #eeeeee;
+  border-radius: 2px;
+}
+
+.day-month-ul li{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  padding: 10px;
+  height: 60px;
+  gap: 10px;
+  background: #212121;
+  margin-bottom: 10px;
+  border-radius: 10px;
+}
+
+.day-month-ul li:last-child{
+  padding-bottom: 20px;
+}
+
+.day-month-ul li .day-month-content{
+  width: 100%;
+  height: 100%;
+}
+
+.day-month-content p{
+  text-overflow: ellipsis;
+  height: 16px;
+  overflow: hidden;
+}

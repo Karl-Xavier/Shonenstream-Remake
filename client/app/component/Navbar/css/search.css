@@ -1,0 +1,26 @@
+.search-div{
+  width: 220px;
+  height: 44px;
+  background: #0f0e0e;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.search-div input{
+  width: 100%;
+  outline: none;
+  font-weight: 500;
+}
+
+@media screen and (max-width: 798px){
+  .search-div{
+    width: 80%;
+    margin: 10px 0 10px 0;
+  }
+}
+
+@media screen and (max-width: 600px){
+  .search-div{
+    width: 100%;
+  }
+}

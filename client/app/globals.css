@@ -1,0 +1,40 @@
+@import "tailwindcss";
+
+@font-face{
+  font-family: 'Winky Sans';
+  src: url('/Winky Sans/WinkySans-Regular.woff2')
+  format('woff2'),
+  url('/Winky Sans/WinkySans-Regular.woff')
+  format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --background: #121212;
+  --foreground: #eee;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #121212;
+    --foreground: #eee;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Winky Sans', sans-serif;
+}
+
+.outlined-text{
+  -webkit-text-stroke: 1px currentColor;
+  -webkit-text-fill-color: transparent;
+}

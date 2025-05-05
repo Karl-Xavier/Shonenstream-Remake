@@ -2,6 +2,7 @@ import express from 'express'
 import cors from 'cors'
 const connectDb = require('./config/db')
 import dotenv from 'dotenv'
+import path from 'path'
 
 dotenv.config()
 
@@ -29,6 +30,8 @@ const corsOption = {
 app.use(cors(corsOption))
 app.use(express.json({ limit: '1gb' }))
 
+app.use('/static', express.static(path.join(__dirname, '..', 'static')))
+
 connectDb()
 
 app.get('/', (req, res) =>{
@@ -47,6 +50,8 @@ const movie = require('./route/Movie')
 const feed = require('./route/News')
 const watch = require('./route/Watch')
 
+const img = require('./route/ProfilePicture')
+
 app.use('/api/auth', auth)
 app.use('/api', home)
 app.use('/api', search)
@@ -55,6 +60,8 @@ app.use('/api', category)
 app.use('/api', movie)
 app.use('/api', feed)
 //app.use('/api', watch)
+
+app.use(img)
 
 app.listen(port, () => {
     console.log(`App Running on port ${port}`)

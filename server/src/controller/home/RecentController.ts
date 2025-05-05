@@ -1,7 +1,16 @@
 import { Request, Response } from "express";
 const FetchHTML = require('../../config/Cheerio')
+import { v4 } from 'uuid'
 
 const homeURL = 'https://animekai.to/home'
+
+interface AnimeListItem {
+    id: string;
+    title: string;
+    link: string;
+    imgURL: string;
+    epiNum: string;
+}
 
 async function RecentController(req: Request, res: Response): Promise<any> {
     
@@ -9,7 +18,7 @@ async function RecentController(req: Request, res: Response): Promise<any> {
         
         const $ = await FetchHTML(homeURL)
 
-        const animeList: any = [] as any
+        const animeList: AnimeListItem[] = []
 
         $('.aitem').each((_index: any, element: any) => {
 
@@ -22,6 +31,7 @@ async function RecentController(req: Request, res: Response): Promise<any> {
             // Push Data in to animeList array
 
             animeList.push({
+                id: v4(),
                 title,
                 link,
                 imgURL,
