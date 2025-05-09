@@ -10,7 +10,7 @@ async function FetchHTML(url: string): Promise<any>{
         
         const { data } = await axios.get(url, {
             httpAgent: proxy.getAgent(),
-            timeout: 10000
+            timeout: 10000,
         })
 
         return cheerio.load(data)

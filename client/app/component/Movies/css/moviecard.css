@@ -1,0 +1,17 @@
+.movie-li a{
+  text-decoration: none;
+  transition: padding .3s ease-in-out;
+}
+
+.movie-li a:hover{
+  padding: 15px;
+}
+
+.movie-li a img{
+  border-radius: 10px 0 10px 0;
+}
+
+.movie-li a p{
+  line-height: 16px;
+  text-transform: uppercase;
+}

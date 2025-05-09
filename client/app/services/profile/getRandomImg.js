@@ -12,6 +12,7 @@ export default async function getProfileImg(){
     return `${url}${imgURL}`
   }catch(err){
     console.log(err)
+    return
   }
 
 }

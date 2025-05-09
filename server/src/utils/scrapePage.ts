@@ -20,7 +20,7 @@ export async function scrapePage(page = '1' as string, name: string | null, type
 
     const $ = await FetchHTML(url)
 
-    const genreList: any = [] as any
+    const scrapedList: any = [] as any
 
     try {
         
@@ -30,7 +30,7 @@ export async function scrapePage(page = '1' as string, name: string | null, type
             const imgURL = $(element).find('img').attr('data-src')
             const link = $(element).find('.poster').attr('href')
 
-            genreList.push({
+            scrapedList.push({
                 title,
                 link,
                 imgURL
@@ -61,7 +61,7 @@ export async function scrapePage(page = '1' as string, name: string | null, type
 
         return {
             totalPages,
-            genreList
+            scrapedList
         }
 
     } catch(err) {

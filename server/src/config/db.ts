@@ -1,7 +1,7 @@
 import mongoose from "mongoose"
 const nodeEnv = require('./nodeEnv')
 
-const mongoURL = nodeEnv === 'production' ? 'mongodb+srv://uwasbruno256:7pZuPhKNAZBNwRMD@shonenstream.pt6qv.mongodb.net/shonenstream?retryWrites=true&w=majority&appName=shonenstream' : 'mongodb://localhost:27017/shonenstream'
+const mongoURL = nodeEnv === 'production' ? process.env.MONGO_URL as string : 'mongodb://localhost:27017/shonenstream'
 
 const connectDb = async () => {
     try {
@@ -16,4 +16,4 @@ const connectDb = async () => {
     }
 }
 
-module.exports = connectDb 
+module.exports = connectDb

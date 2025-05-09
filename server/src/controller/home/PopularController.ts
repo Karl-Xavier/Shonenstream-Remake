@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
 const FetchHTML = require('../../config/Cheerio')
 import { v4 } from "uuid";
+const getWeeklySchedule = require('../../service/getWeeklySchedule')
+const getUpComing = require('../../service/getUpcoming')
 
 const url = 'https://animekai.to/home'
 
@@ -38,7 +40,13 @@ async function PopularController(req: Request, res: Response): Promise<any> {
 
         })
 
-        return res.status(200).json({ popularAnime })
+        const weeklyScheduleData = await getWeeklySchedule()
+
+        const upcoming = await getUpComing()
+
+        console.log(upcoming)
+
+        return res.status(200).json({ popularAnime, weeklyScheduleData })
 
     } catch(err: any) {
         

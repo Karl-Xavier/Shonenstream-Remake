@@ -9,8 +9,6 @@ import jwt from 'jsonwebtoken'
 
 const frontendURL = nodeEnv === 'production' ? 'myanimetv.vercel.app' : 'localhost'
 
-console.log(frontendURL)
-
 const jwt_secret: string = process.env.ACCESS_TOKEN_SECRET as string
 
 async function LoginController(req: Request, res: Response): Promise<any>{

@@ -13,10 +13,9 @@ function redisCachedData(keyPrefix: string, ttl = 3600){
 
             if(cachedData){
 
-                return res.json({
-                    source: 'cache',
-                    data: JSON.parse(cachedData)
-                })
+                const data = JSON.parse(cachedData)
+
+                return res.json({ data })
             }
 
             // Monkey Patch res.json to cache the response 
@@ -29,7 +28,10 @@ function redisCachedData(keyPrefix: string, ttl = 3600){
 
                     try {
 
-                        await client.setEx(key, ttl, JSON.stringify(body.data || body))
+                        if(res.statusCode >= 200 && res.statusCode < 300){
+
+                            await client.setEx(key, ttl, JSON.stringify(body.data || body))
+                        }
 
                         return originalUrl(body)
 

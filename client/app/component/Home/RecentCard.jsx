@@ -11,7 +11,7 @@ export default function RecentCard({ recent }) {
     <li data-id={recent.id} className='recent-li'>
       <Link href={recent.link}>
         <div className="img-title">
-          <Image src={recent.imgURL} alt={recent.title} width={100} height={100} className='img-poster'/>
+          <Image src={recent.imgURL} alt={recent.title} width={100} height={100} className='img-poster' unoptimized/>
           <p className="title">{recent.title}</p>
         </div>
       </Link>
