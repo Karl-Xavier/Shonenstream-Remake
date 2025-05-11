@@ -3,8 +3,14 @@ import Link from 'next/link'
 import React from 'react'
 import './css/suggestion.css'
 import { suggestionData } from '@/app/utils/rawData/suggestionData'
+import getSuggestion from '@/app/services/getSuggestion'
 
-export default function Suggestion() {
+export default async function Suggestion({ query }) {
+
+  const data = await getSuggestion(query)
+
+  console.log(data)
+
   return (
     <div className='suggestion-box'>
       <ul>

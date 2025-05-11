@@ -2,12 +2,12 @@ import React from 'react'
 import './css/recentcomp.css'
 import Image from 'next/image'
 
-export default function RecentComp({ popularData }) {
+export default function RecentComp({ upcomingData }) {
   return (
     <div className="recent-top">
-        <h2>Recently Completed</h2>
+        <h2>Upcoming Series</h2>
         <ul className="recent-top-ul">
-          {popularData.map((recent, index) => (
+          {upcomingData.map((recent, index) => (
             <li key={index} data-id={recent.id}>
               <div className="recent-content">
                 <div className="img-today">
@@ -15,7 +15,7 @@ export default function RecentComp({ popularData }) {
                 </div>
                 <div className="text-today">
                   <p>{recent.title}</p>
-                  <span>SUB 12</span>
+                  <span>SOURCE: <span className='src'>AniList</span></span>
                 </div>
               </div>
             </li>

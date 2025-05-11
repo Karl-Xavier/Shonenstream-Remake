@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { CaretDown, CaretUp, List, MagnifyingGlass, X } from 'phosphor-react'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useTransition } from 'react'
 import { navItem } from '@/app/utils/navItem'
 import ProfileList from './ProfileList'
 import './css/navbar.css'
@@ -21,13 +21,10 @@ export default function Navbar() {
   const [showMobileNav, setShowMobileNav] = useState(false)
 
   const [query, setQuery] = useState('')
+  const [debouncedQuery, setDebouncedQuery] = useState('')
 
   function toggleShowSearch(){
     setShowSearch(!showSearch)
-
-    /* if(!showSearch){
-      setQuery('')
-    } */
   }
 
   function toggleGenre(){
@@ -42,8 +39,6 @@ export default function Navbar() {
     setShowMobileNav(!showMobileNav)
   }
 
-  useEffect(() => {
-
     function isTyping(){
 
       if(query.length > 2){
@@ -54,10 +49,6 @@ export default function Navbar() {
     }
 
     isTyping()
-
-  },[query, showSearch])
-
-  console.log(query)
 
   return (
     <header className='header relative'>

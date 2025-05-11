@@ -4,17 +4,19 @@ import './css/moviecomponent.css'
 import PaginationWrapper from '../Pagination/PaginationWrapper'
 import getMovies from '@/app/services/movieAndgenre/getMovies'
 
-export default function MovieComponent({ page }) {
+export default async function MovieComponent({ page }) {
 
-  try {
+    try{
 
-    const data = getMovies(page)
+    const data = await getMovies(page)
+
+    console.log(data)
 
     let movieData = []
 
-    movieData = data.data.scrapedList
+    movieData = data.data ? data.data.scrapedList : data.scrapedList
 
-    const totalPage = data.data.totalPages
+    const totalPage = data.data ? data.data.totalPages : data.totalPages
 
     return (
       <div className='container p-2 mt-4 movies-container w-full h-auto'>
@@ -27,8 +29,8 @@ export default function MovieComponent({ page }) {
       </div>
     )
 
-  } catch (err) {
-    
+  }catch (err) {
+      
     const errType = ['ReferenceError', 'TypeError', 'Error', 'AggregatorError']
 
     if(err.message === 'Network Error'){
@@ -38,5 +40,5 @@ export default function MovieComponent({ page }) {
     }
     return
   }
-  
+
 }

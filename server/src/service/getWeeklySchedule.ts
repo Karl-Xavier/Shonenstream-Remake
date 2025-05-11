@@ -28,8 +28,6 @@ async function getWeeklySchedule(): Promise<WeeklyScheduleItem>{
 
   const url = `https://animeschedule.net/?year=${year}&week=${week}`
 
-  console.log(url)
-
   try{
 
     const $ = await FetchHTML(url)

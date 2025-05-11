@@ -44,9 +44,7 @@ async function PopularController(req: Request, res: Response): Promise<any> {
 
         const upcoming = await getUpComing()
 
-        console.log(upcoming)
-
-        return res.status(200).json({ popularAnime, weeklyScheduleData })
+        return res.status(200).json({ popularAnime, weeklyScheduleData, upcoming })
 
     } catch(err: any) {
         

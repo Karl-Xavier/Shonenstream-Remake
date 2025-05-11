@@ -1,5 +1,4 @@
 import React from 'react'
-import { popularData } from '@/app/utils/rawData/popularData'
 import { getPopular } from '@/app/services/home/getPopular'
 import './css/popular.css'
 import TodayPopular from './reuseables/TodayPopular'
@@ -10,15 +9,19 @@ export default async function Popular() {
 
   try {
 
-    const popular_data = await getPopular()
+    const data = await getPopular()
 
-    console.log(popular_data)
+    const popularData = data.data ? data.data.popularAnime : data.popularAnime
+
+    const upcomingData =  data.data ? data.data.upcoming : data.upcoming
+
+    const weeklyData =  data.data ? data.data.weeklyScheduleData : data.weeklyScheduleData
     
     return (
       <section className='popular-content-section'>
         <TodayPopular popularData={popularData}/>
-        <RecentComp popularData={popularData}/>
-        <WeeklyUpdate popularData={popularData}/>
+        <RecentComp upcomingData={upcomingData}/>
+        <WeeklyUpdate weeklyData={weeklyData}/>
       </section>
     )
 

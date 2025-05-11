@@ -70,3 +70,7 @@
   color: orange;
   font-size: 12px;
 }
+
+.text-today span .src{
+  color: #eee;
+}

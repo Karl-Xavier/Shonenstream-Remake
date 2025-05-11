@@ -1,11 +1,15 @@
 import React from 'react'
-import MovieWrapper from '@/app/component/Movies/MovieWrapper'
+import MovieComponent from '@/app/component/Movies/MovieComponent'
 
-export default function page() {
+export default async function page({ searchParams }) {
+
+  const pageParam = await searchParams
+
+  const page = pageParam?.page || undefined
 
   return (
     <div>
-      <MovieWrapper/>
+      <MovieComponent page={page}/>
     </div>
   )
 }

@@ -1,7 +1,9 @@
-const FetchHTML = require('../config/Cheerio')
-import getNextSeason from "../utils/getSeason"
+import axios from "axios";
+const ProxyManager = require('../utils/proxyManager')
 
-const url = 'https://www.anime-planet.com/anime/seasons/upcoming'
+const FetchHTML = require('../config/Cheerio')
+
+const proxy = new ProxyManager('./proxies.txt', 10 * 60 * 1000, 'https')
 
 interface UpcomingItem {
   imgURL: string;
@@ -12,34 +14,42 @@ async function getUpComing(){
 
   try {
 
-    const { next } = getNextSeason()
-
-    const upcomingData: UpcomingItem[] = []
-
-    const $ = FetchHTML(url)
-
-    $('h3').each((_: any, el: any) => {
-
-      const heading = $(el).text().trim()
-
-      if(heading.toLoweCase().includes(next.toLowerCase())){
-
-        const firstUl = $(el).nextAll('ul').first()
-
-        firstUl.find('li').each((index: any, element: any) => {
-
-          const imgURL = $(element).find('a .crop img').attr('src')
-          const title = $(element).find('a .crop img').attr('alt')
-
-          upcomingData.push({ imgURL, title })
-
-        })
-
+    const query = `
+      query {
+        Page(perPage: 10) {
+          media(type: ANIME, sort: START_DATE, status: NOT_YET_RELEASED){
+            title {
+              romaji
+            }
+            coverImage {
+              large
+            }
+          }
+        }
       }
+    `
 
+    let upComingList: UpcomingItem[] = []
+
+    const response = await axios.post('https://graphql.anilist.co', { query }, { 
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      httpAgent: proxy.getAgent(),
+      timeout: 10000,
     })
 
-    return upcomingData
+    const simplified = response.data.data.Page.media.map((anime: any) => ({
+
+      title: anime.title.romaji,
+      imgURL: anime.coverImage.large
+
+    }))
+
+
+    upComingList.push(...simplified)
+
+    return upComingList
 
   } catch(err: any) {
     throw new Error(err)
