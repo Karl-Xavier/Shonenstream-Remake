@@ -1,0 +1,17 @@
+.genre-li a{
+  text-decoration: none;
+  transition: padding .3s ease-in-out;
+}
+
+.genre-li a:hover{
+  padding: 15px;
+}
+
+.genre-li a img{
+  border-radius: 10px 0 10px 0;
+}
+
+.genre-li a p{
+  line-height: 16px;
+  text-transform: uppercase;
+}

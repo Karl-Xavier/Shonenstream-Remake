@@ -1,6 +1,6 @@
 import { Request, Response, Router } from "express";
 const redisCachedData = require('../middleware/cacheData')
-const scrapePage = require('../utils/scrapePage')
+import { scrapePage } from "../utils/scrapePage";
 const scrapeAllPage = require('../utils/scrapeAllPage')
 
 const router = Router()
@@ -8,7 +8,18 @@ const router = Router()
 
 router.get('/genre/:genre', redisCachedData('genre:'), async(req: Request, res: Response): Promise<any> => {
 
-    const page = req.query.page || '1'
+    const pageQuery = req.query.page || '1'
+
+    let page: string | undefined = undefined
+ 
+    if(typeof pageQuery === 'string'){
+ 
+     page = pageQuery
+ 
+    }else{
+ 
+     return res.status(400).json({ error: 'Invalid Page Parameter' })
+    }
 
     const name = req.params.genre
 

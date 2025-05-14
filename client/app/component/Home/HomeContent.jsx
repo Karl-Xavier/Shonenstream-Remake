@@ -34,7 +34,7 @@ export default async function HomeContent() {
   }catch(err){
     const errType = ['ReferenceError', 'TypeError', 'Error', 'AggregatorError']
 
-    if(err.message === 'Network Error'){
+    if(err.message === 'Network Error' || err.message === 'Request failed with status code 500'){
       throw new Error('Network Error')
     }else if(errType.includes(err.name)){
       throw new Error('Something Went Wrong with the Application')

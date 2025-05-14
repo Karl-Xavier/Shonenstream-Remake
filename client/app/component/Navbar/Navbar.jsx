@@ -39,6 +39,8 @@ export default function Navbar() {
     setShowMobileNav(!showMobileNav)
   }
 
+  useEffect(() => {
+
     function isTyping(){
 
       if(query.length > 2){
@@ -49,6 +51,8 @@ export default function Navbar() {
     }
 
     isTyping()
+
+  },[])
 
   return (
     <header className='header relative'>
