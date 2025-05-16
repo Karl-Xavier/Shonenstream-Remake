@@ -4,7 +4,7 @@ import React, { useState, useMemo } from 'react'
 import './css/weeklyupdate.css'
 
 export default function WeeklyUpdate({ weeklyData }) {
-  const weekOrder = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+  const weekOrder = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 
   const sortedWeek = useMemo(() => {
     return [...weeklyData.week].sort((a, b) => weekOrder.indexOf(a.day) - weekOrder.indexOf(b.day))
@@ -14,7 +14,7 @@ export default function WeeklyUpdate({ weeklyData }) {
     return [...weeklyData.dayAndMonth].sort((a, b) => weekOrder.indexOf(a.day) - weekOrder.indexOf(b.day))
   }, [weeklyData])
 
-  const [selectedDay, setSelectedDay] = useState(sortedWeek[0].day)
+  const [selectedDay, setSelectedDay] = useState(weeklyData.dayAndMonth[0].day)
 
   const activeData = sortedWeek.find(day => day.day === selectedDay)
   const activeMonth = sortedDate.find(d => d.day === selectedDay)?.month || ''

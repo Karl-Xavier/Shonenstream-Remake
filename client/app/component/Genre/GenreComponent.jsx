@@ -10,8 +10,6 @@ export default async function GenreComponent({ page, genre }) {
 
     const data = await getGenre(genre, page)
 
-    console.log(data)
-
     let genreData = []
 
     genreData = data.data ? data.data.scrapedList : data.scrapedList

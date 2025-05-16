@@ -10,8 +10,6 @@ export default async function MovieComponent({ page }) {
 
     const data = await getMovies(page)
 
-    console.log(data)
-
     let movieData = []
 
     movieData = data.data ? data.data.scrapedList : data.scrapedList

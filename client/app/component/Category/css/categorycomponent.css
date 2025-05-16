@@ -1,0 +1,40 @@
+.right-content{
+  width: 100%;
+  height: auto;
+  padding: 10px;
+}
+
+.right-content img{
+  float: left;
+  margin: 0 15px 10px 0;
+}
+
+.right-content .src-from{
+  font-weight: 300;
+  font-size: 13px;
+  color: orange;
+}
+
+.right-content .alt-name{
+  color: lightslategrey;
+}
+
+.right-content p.genres, p.date, p.status{
+  width: max-content;
+  display: flex;
+  flex-direction: row;
+}
+
+.right-content .first{
+  width: max-content;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 7px;
+  color: lightslategray;
+}
+
+.right-content p.genres a:hover{
+  color: #ee49fd;
+}

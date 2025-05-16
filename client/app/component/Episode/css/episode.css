@@ -1,0 +1,47 @@
+.episodes{
+  width: 100%;
+  height: 400px;
+  overflow: auto;
+}
+
+.episodes .episode-list{
+  width: 100%;
+  height: 100%;
+}
+
+.episode-list ul{
+  width: 100%;
+  height: 100%;
+}
+
+.episode-list ul li{
+  width: 100%;
+  background: #eee;
+  color: #0943e3ee;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  font-weight: 600;
+}
+
+.episode-list ul li a{
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-evenly;
+  padding: 10px;
+}
+
+.episode-list ul li a span.title{
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+@media screen and (min-width: 48rem) and (max-width: 1024px) {
+  .episode-list ul li a span.title{
+    width: 50%;
+  }
+
+  .episode-list ul li {
+    margin-bottom: 0;
+  }
+}
