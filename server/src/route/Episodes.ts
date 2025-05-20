@@ -1,101 +1,53 @@
 import {Request, Response, Router} from 'express'
-import puppeteer, { Browser, Page } from 'puppeteer'
+import axios from 'axios';
+import getMALID from '../service/getMALID';
+const ProxyManager = require('../utils/proxyManager')
+import { v4 } from 'uuid';
 
 const router = Router()
 
 interface EpisodeItem {
+    id: string;
     title?: string;
     link?: string;
     number?: string;
+    animeId: string;
 }
 
-interface AjaxRes {
-    url?: string;
-    body?: any;
-}
+const proxy = new ProxyManager('./proxies.txt', 10 * 60 * 1000, 'https')
 
-router.get('/episodes', async(req: Request, res: Response) => {
+router.get('/api/episodes', async(req: Request, res: Response): Promise<any> => {
 
     const episodeName: string = req.query.name as string
 
-    const episodes: EpisodeItem[] = []
-
-    const ajaxResponse: AjaxRes[] = []
-
-    let capturedLink: boolean = false
+    const episodesList: EpisodeItem[] = []
 
     try {
-        
-        // launch puppeteer
 
-        const browser: Browser = await puppeteer.launch({
-            headless: true,
-            timeout: 0,
-        })
+        const malID = await getMALID(episodeName)
 
-        const page: Page = await browser.newPage()
+       const url = `https://miruro.tv/api/episodes?malId=${malID}`
 
-        page.on('response', async (response) => {
+       const response = await axios.get(url, {
+        httpAgent: proxy.getAgent(),
+        timeout: 10000
+       })
 
-            const request = response.request()
-            const url = request.url()
+       const responseData = await response.data
 
-            if(url.includes('ajax/episodes/list') && !capturedLink){
+       const dataEpisode: any = Object.values(responseData.TMDB)[0]
+       const animeId = Object.keys(responseData.ANIMEPAHE)[0]
+       const kaiId = Object.keys(responseData.ANIMEKAI)[0]
 
-                if(request.resourceType() === 'xhr' || request.resourceType() === 'fetch'){
+       const linkURL = `/watch/${episodeName.toLowerCase().trim().replace(/\s+/g, '-').replace(/[^\w\-]+/g, '').replace(/\-\-+/g, '-')}-${kaiId}`
 
-                    try {
-                        
-                        const responseBody = await response.json()
+       dataEpisode.metadata.episodes.forEach((episode: any) => {
 
-                        ajaxResponse.push({
-                            url,
-                            body: responseBody
-                        })
+        episodesList.push({ id: v4(), title: episode.title, link: `${linkURL}#ep=${episode.number}`, number: episode.number, animeId })
 
-                        if(url.includes('ajax/episodes/list')){
+       })
 
-                            capturedLink = true
-                        }
-
-                    } catch(err: any) {
-                        
-                        try {
-                            
-                            const responseText = await response.text()
-
-                            ajaxResponse.push({
-                                url,
-                                body: responseText
-                            })
-
-                            if(url.includes('ajax/episodes/list')){
-
-                                capturedLink = true
-                            }
-
-                        } catch(textErr: any) {
-                            console.warn('Failed to parse ajax response as JSON or Text:', url, response.status())
-                        }
-                    }
-
-                    if(capturedLink){
-
-                        console.log('Already caught the link')
-
-                        await browser.close()
-                        return
-                    }
-                }
-            }
-
-        })
-
-        await page.goto(`https://animekai.to/watch/${episodeName}`)
-
-        console.log(JSON.stringify(ajaxResponse))
-
-        await browser.close()
+       return res.status(200).json(episodesList)
 
     } catch(err: any) {
         console.log(err)

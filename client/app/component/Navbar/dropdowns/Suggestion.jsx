@@ -1,22 +1,71 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './css/suggestion.css'
-import { suggestionData } from '@/app/utils/rawData/suggestionData'
+//import { suggestionData } from '@/app/utils/rawData/suggestionData'
 import getSuggestion from '@/app/services/getSuggestion'
+import { getDisplayCategoryLink } from '@/app/utils/formatLink'
+import { ArrowRight } from 'phosphor-react'
 
-export default async function Suggestion({ query }) {
+export default function Suggestion({ query }) {
 
-  const data = await getSuggestion(query)
+  const [suggestionData, setSuggestionData] = useState([])
+  const [ loading, setLoading ] = useState(false)
+  const [err, setError] = useState(null)
 
-  console.log(data)
+  useEffect(() => {
+
+    async function fetchData() {
+      
+      try{
+
+        setLoading(true)
+
+        const data = await getSuggestion(query)
+
+        console.log(data)
+
+        setSuggestionData(data)
+
+      }catch(err){
+
+        console.log(err)
+
+        const errType = ['ReferenceError', 'TypeError', 'Error', 'AggregatorError']
+
+        if(err.message === 'Network Error' || err.message === 'Request failed with status code 500'){
+          setError('Network Error')
+        }else if(errType.includes(err.name)){
+          setError('Something Went Wrong with the Application')
+        }else{
+          setError('Server Error')
+        }
+
+      }finally{
+        setLoading(false)
+        setErr(null)
+      }
+
+    }
+
+    fetchData()
+
+  }, [query])
+
+  const slicedSuggestion = suggestionData.length > 12 ? suggestionData.slice(0, 10) : suggestionData
 
   return (
-    <div className='suggestion-box'>
+    <div className='suggestion-box' id='suggestions'>
       <ul>
-        {suggestionData.map((suggest, index) => (
+        { loading && <p>Loading....</p> }
+        {err && !loading && <span className='text-center text-[indianred] font-semibold block'>{err}</span>}
+        {slicedSuggestion.map((suggest, index) => {
+
+          const formattedLink = getDisplayCategoryLink(suggest.link)
+
+          return (
           <li key={index} data-id={suggest.id} data-shonen-id={suggest.id}>
-              <Link href={''}>
+              <Link href={{pathname: formattedLink, query: { og: encodeURIComponent(suggest.link) }}} data-og-link={suggest.link}>
               <Image src={suggest.imgURL} width={100} height={100} alt={suggest.title}/>
               <div className="text-content-div">
                 <h3>{suggest.title}</h3>
@@ -24,7 +73,12 @@ export default async function Suggestion({ query }) {
               </div>
             </Link>
           </li>
-        ))}
+        )})}
+        {suggestionData.length > 12 && (
+          <div className='w-full h-auto p-2 border-t-1 border-t-[lightgrey] flex flex-row justify-end'>
+            <Link href={`/search?query=${query}`} className='w-max flex flex-row justify-evenly items-center gap-4 bg-[#eee] text-[#121212] p-[5px] rounded font-bold'>SEE MORE <ArrowRight/></Link>
+          </div>
+        )}
       </ul>
     </div>
   )

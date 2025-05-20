@@ -11,6 +11,10 @@ const usePagination = (totalPages) => {
 
   const pageParams = searchParams.get('page') || 1
 
+  // check if there is a query param for search page
+
+  const queryParam = searchParams.get('query')
+
   const [currentPage, setCurrentPage] = useState(pageParams)
 
   useEffect(() => {
@@ -34,9 +38,19 @@ const usePagination = (totalPages) => {
     }
 
     if(page === 1){
-      router.push(`${route}`)
+
+      if(queryParam){
+        router.push(`${route}?query=${queryParam}`)
+      }else {
+        router.push(`${route}`)
+      }
     }else {
-      router.push(`${route}?page=${page}`)
+
+      if(queryParam){
+        router.push(`${route}?query=${queryParam}&page=${page}`)
+      }else{
+        router.push(`${route}?page=${page}`)
+      }
     }
   }
 

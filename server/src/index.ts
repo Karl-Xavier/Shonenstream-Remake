@@ -48,7 +48,8 @@ const genre = require('./route/Genre')
 const category = require('./route/Category')
 const movie = require('./route/Movie')
 const feed = require('./route/News')
-const watch = require('./route/Watch')
+//const watch = require('./route/Watch')
+const episodes = require('./route/Episodes')
 
 const img = require('./route/ProfilePicture')
 
@@ -59,7 +60,7 @@ app.use('/api', genre)
 app.use('/api', category)
 app.use('/api', movie)
 app.use('/api', feed)
-//app.use('/api', watch)
+app.use(episodes)
 
 app.use(img)
 

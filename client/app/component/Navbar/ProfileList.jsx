@@ -17,7 +17,7 @@ export default function ProfileList({ toggle }) {
  },[])
 
   return (
-    <div className="profile-li cursor-pointer" onClick={toggle}>
+    <div className="profile-li cursor-pointer" onClick={toggle} id='profile-li-btn'>
       {profileImg === null || profileImg === undefined ? (
         <div className="loading-blank"></div>
       ): (

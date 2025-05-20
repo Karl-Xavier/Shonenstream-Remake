@@ -5,7 +5,7 @@ import Link from 'next/link'
 
 export default function ProfileOption() {
   return (
-    <div className='profile-option'>
+    <div className='profile-option' id='profile-li'>
       <ul>
         {profileOptData.map((option, index) => (
           <li key={index}>

@@ -1,0 +1,16 @@
+.ul-search li a:hover{
+  padding: 15px;
+  transition: padding .3s ease-in-out;
+}
+
+.ul-search li a img{
+  border-radius: 10px 0 10px 0;
+}
+
+.ul-search li a p{
+  line-height: 16px;
+  height: 33px;
+  overflow: hidden;
+  font-weight: 600;
+  text-transform: uppercase;
+}

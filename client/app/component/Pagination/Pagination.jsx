@@ -3,7 +3,7 @@
 import './css/pagination.css'
 import getPages from '../../utils/getPages'
 import { usePathname } from 'next/navigation'
-import { ArrowElbowLeft, CaretRight, CaretLeft } from 'phosphor-react'
+import { CaretRight, CaretLeft } from 'phosphor-react'
 
 export default function Pagination({ totalPages, currentPage, onPageChange }) {
 

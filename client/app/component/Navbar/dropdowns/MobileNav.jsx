@@ -14,7 +14,7 @@ export default function MobileNav() {
   }
 
   return (
-    <div className='mobile-nav'>
+    <div className='mobile-nav' id='small-nav'>
       <ul>
         {mobileNavData.map((data, index) => (
           <li key={index}>

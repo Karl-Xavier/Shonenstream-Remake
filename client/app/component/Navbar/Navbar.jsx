@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { CaretDown, CaretUp, List, MagnifyingGlass, X } from 'phosphor-react'
-import React, { useEffect, useState, useTransition } from 'react'
+import React, { useEffect, useState } from 'react'
 import { navItem } from '@/app/utils/navItem'
 import ProfileList from './ProfileList'
 import './css/navbar.css'
@@ -11,6 +11,7 @@ import Genredropdown from './dropdowns/Genredropdown'
 import Suggestion from './dropdowns/Suggestion'
 import ProfileOption from './dropdowns/ProfileOption'
 import MobileNav from './dropdowns/MobileNav'
+import { handleGlobalDropdown } from '@/app/utils/handleGlobalDropdown'
 
 export default function Navbar() {
 
@@ -23,21 +24,21 @@ export default function Navbar() {
   const [query, setQuery] = useState('')
   const [debouncedQuery, setDebouncedQuery] = useState('')
 
-  function toggleShowSearch(){
-    setShowSearch(!showSearch)
+  const closeDropdown=()=>{
+    setIsGenreOpen(false)
+    setShowMobileNav(false)
+    setShowProfileOption(false)
   }
 
-  function toggleGenre(){
-    setIsGenreOpen(!isGenreOpen)
-  }
+  useEffect(() =>{
+    const listener=(e)=>{
+      handleGlobalDropdown(e, ()=> setQuery(''),closeDropdown)
+    }
 
-  function toggleProfileOption() {
-    setShowProfileOption(!showProfileOption)
-  }
+    document.addEventListener('mousedown', listener)
 
-  function toggleMobileNav(){
-    setShowMobileNav(!showMobileNav)
-  }
+    return () => document.removeEventListener('mousedown', listener)
+  },[])
 
   useEffect(() => {
 
@@ -52,13 +53,13 @@ export default function Navbar() {
 
     isTyping()
 
-  },[])
+  },[query, showSuggestion])
 
   return (
     <header className='header relative'>
       <div className="header-content">
         <div className="left-content">
-          <button className="mobile-icon outline-none" onClick={toggleMobileNav}>
+          <button className="mobile-icon outline-none" id='small-nav-btn' onClick={() => setShowMobileNav(!showMobileNav)}>
             <List size={20} weight='bold'/>
           </button>
           <Link href={'/'}>
@@ -67,7 +68,7 @@ export default function Navbar() {
         </div>
         <nav className="main-nav" aria-label='main-nav'>
           <div className="search-content">
-            <button className="mobile-search outline-none" onClick={toggleShowSearch}>
+            <button className="mobile-search outline-none" onClick={() => setShowSearch(!showSearch)}>
               {showSearch ? <X size={22} weight='bold' /> : <MagnifyingGlass size={22} weight='bold'/>}
             </button>
             <div className="lg-screen-search">
@@ -83,7 +84,7 @@ export default function Navbar() {
                     <span>{item.icon}</span>
                   </Link>
                 ): (
-                  <span onClick={toggleGenre}>
+                  <span id='genre-drop-btn' onClick={() => setIsGenreOpen(!isGenreOpen)}>
                     <span>{item.name}</span>
                     <span>{isGenreOpen ? <CaretDown weight='fill' size={22}/> : <CaretUp weight='fill' size={22}/>}</span>
                   </span>
@@ -91,10 +92,10 @@ export default function Navbar() {
               </li>
             ))}
           </ul>
-          <ProfileList toggle={toggleProfileOption}/>
+          <ProfileList toggle={() => setShowProfileOption(!showProfileOption)}/>
         </nav>
       </div>
-      {isGenreOpen && <Genredropdown/>}
+      {isGenreOpen && <Genredropdown />}
       {showSearch && (
         <div className='mobile-bar flex-row justify-center items-center'>
           <Search query={query} setQuery={setQuery}/>

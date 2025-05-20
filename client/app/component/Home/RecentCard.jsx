@@ -5,11 +5,15 @@ import Link from 'next/link'
 import { Eye, Television } from 'phosphor-react'
 import React from 'react'
 import './css/recentcard.css'
+import { getDisplayWatchLink } from '@/app/utils/formatLink'
 
 export default function RecentCard({ recent }) {
+
+  const formattedLink = getDisplayWatchLink(recent.link)
+
   return (
     <li data-id={recent.id} className='recent-li'>
-      <Link href={recent.link}>
+      <Link href={formattedLink} data-og-link={recent.link}>
         <div className="img-title">
           <Image src={recent.imgURL} alt={recent.title} width={100} height={100} className='img-poster' unoptimized/>
           <p className="title">{recent.title}</p>
