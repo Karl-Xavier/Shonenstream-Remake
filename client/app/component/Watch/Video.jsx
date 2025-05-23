@@ -18,6 +18,7 @@ export default function Video({ src }) {
   const [duration, setDuration] = useState(0)
   const [ showPlayBackDiv, setShowPlayBackDiv ] = useState(false)
   const [ volumeValue, setVolumeValue ] = useState(1)
+  const [isFullscreen, setFullScreen] = useState(false)
 
   const videoRef = useRef(null)
 
@@ -114,11 +115,21 @@ export default function Video({ src }) {
     console.log(newVolume, volumeValue)
   }
 
+  function fullScreen(){
+    const video = videoRef.current
+
+    if(!document.fullscreenElement){
+      video?.requestFullscreen()
+    }else{
+      video.exitFullscreen()
+    }
+  }
+
   return (
     <div className="video_player mt-3 w-full h-[300px] md:h-[400px] relative outline-none bg-black">
-      <video ref={videoRef} className='video w-full relative h-full' src={`${backendURL}static/vid.mp4`}></video>
+      <video ref={videoRef} controls={false} onContextMenu={(e) => e.preventDefault()} className='video w-full relative h-full' src={`${backendURL}static/vid.mp4`}></video>
       <div className="progressArea">
-        <div className="controls cursor-pointer ">
+        <div className="controls cursor-pointer">
           <div className="progress-area" onClick={handleSeek}>
             <div className='progress-bar' style={{ width: `${progress}%` }}>
               <span></span>
@@ -140,7 +151,7 @@ export default function Video({ src }) {
             </div>
             <div className="controls-right flex flex-row justify-between items-center w-max gap-3">
               <span className='icons' onClick={() => togglePlayBackDiv(showPlayBackDiv, setShowPlayBackDiv)}><Gear weight='fill' size={20}/></span>
-              <span className='icons'><ArrowsOut weight='fill' size={20}/></span>
+              <span className='icons' onClick={fullScreen}><ArrowsOut weight='fill' size={20}/></span>
             </div>
           </div>
           {showPlayBackDiv && <div className="settings h-[200px] md:h-[250px]">

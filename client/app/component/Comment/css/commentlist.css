@@ -1,0 +1,24 @@
+.comment-li{
+  border-left: 1px solid lightslategray;
+  padding-left: 12px;
+  position: relative;
+}
+
+.comment-li::before{
+  content: '';
+  position: absolute;
+  top: 35px;
+  left: 0;
+  width: 15px;
+  height: 2px;
+  background: lightslategray;
+}
+
+.comment-li .head{
+  width: max-content;
+  padding: 10px;
+}
+
+.comment-li .head img{
+  border-radius: 50%;
+}

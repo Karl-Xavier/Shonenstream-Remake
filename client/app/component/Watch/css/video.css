@@ -2,6 +2,11 @@
   overflow: hidden;
 }
 
+/* .video_player .video::-webkit-media-controls{
+  display: none !important;
+  opacity: 0 !important;
+} */
+
 .video_player .controls{
   position: absolute;
   bottom: 0;

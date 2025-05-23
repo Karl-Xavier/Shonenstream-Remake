@@ -9,7 +9,7 @@ import { getDisplayWatchLink } from '../../utils/formatLink'
 export default function Episode({ episodeList }) {
 
   const [currentData, setCurrentData] = useState(1)
-  const dataPerView = 25
+  const dataPerView = 48
 
   const startIndex = (currentData - 1) * dataPerView
 

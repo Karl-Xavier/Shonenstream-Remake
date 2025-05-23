@@ -1,1 +1,12 @@
-.section-player{}
+.vid-section .watch-title{
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.vid-section .act-btn .sub-option{
+  border: 1px solid oklch(75% 0.183 55.934);
+}
+
+.vid-section .act-btn .dub-option{
+  border: 1px solid oklch(55.8% 0.288 302.321);
+}
