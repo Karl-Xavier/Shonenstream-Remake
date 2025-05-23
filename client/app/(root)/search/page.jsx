@@ -10,14 +10,28 @@ export default async function page({ searchParams }) {
 
   const pageParams = param.page || undefined
 
-  const data = await getSuggestion(queryParams, pageParams)
+  try {
+    
+    const data = await getSuggestion(queryParams, pageParams)
 
-  const queryList = data.results
-  const page = data.page || 0
+    const queryList = data.results
+    const page = data.page || 0
 
-  return (
-    <div>
-      <SearchComponent queryList={queryList} page={page}/>
-    </div>
-  )
+    return (
+      <div>
+        <SearchComponent queryList={queryList} page={page}/>
+      </div>
+    )
+
+  } catch (err) {
+    const errType = ['ReferenceError', 'TypeError', 'Error', 'AggregatorError']
+
+    if(err.message === 'Network Error' || err.message === 'Request failed with status code 500'){
+      throw new Error('Network Error')
+    }else if(errType.includes(err.name)){
+      throw new Error('Something Went Wrong with the Application')
+    }else{
+      throw new Error(err.data.error)
+    }
+  }
 }

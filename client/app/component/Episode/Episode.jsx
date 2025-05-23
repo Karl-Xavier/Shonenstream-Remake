@@ -19,28 +19,28 @@ export default function Episode({ episodeList }) {
 
   const totalPages = Math.ceil(episodeList.length / dataPerView)
 
+  const pageCount = totalPages === 1 ? `1 - ${episodeList.length}` : totalPages > 1 && currentData === 1 ? `1 - ${dataPerView}` : totalPages > 1 && currentData !== 1 ? `${dataPerView * (currentData - 1) + 1} - ${dataPerView * currentData}` : ''
+
   //console.log(episodeList.splice(-1))
 
   return (
     <section className="episodes">
       <div className="category-pagination w-full h-[40px] flex flex-row justify-between items-center bg-[#242424] mb-2 rounded">
         <button  className={`cursor-pointer outline-none ${currentData === 1 && 'disabled'}`} onClick={() => setCurrentData(currentData - 1)} disabled={currentData === 1}><CaretLeft size={20} weight='fill'/></button>
-        <span>{
-          totalPages === 1 ? `1 - ${episodeList.length}` : totalPages > 1 && currentData === 1 ? `1 - ${dataPerView}` : totalPages > 1 && currentData !== 1 ? `${dataPerView * (currentData - 1) + 1} - ${dataPerView * currentData}` : ''
-          }</span>
+        <span>{pageCount}</span>
         <button className={`cursor-pointer outline-none ${currentData === totalPages || totalPages === 1 ? 'disabled' : ''}`}  onClick={() => setCurrentData(currentData + 1)} disabled={currentData === totalPages || totalPages === 1}><CaretRight size={20} weight='fill'/></button>
       </div>
       <div className="episode-list">
-        <ul className='block md:grid md:grid-cols-4 md:gap-2 lg:block'>
+        <ul className='block md:grid md:grid-cols-10 lg:grid-cols-6'>
           {paginatedData.map((episode, index) => {
 
             const formattedLink = getDisplayWatchLink(episode.link)
 
             return(
-            <li key={index} data-id={episode.id} data-ani-id={episode.animeId} className='' title={episode.title} id={paginatedData.id}>
-              <Link href={formattedLink} data-og-link={episode.link} className=''>
+            <li key={index} data-id={episode.id} data-ani-id={episode.animeId} className='w-full md:w-[60px] h:w-[60px]' title={episode.title} id={paginatedData.id}>
+              <Link href={{ pathname: formattedLink, query: { animeId: episode.animeId }}} data-og-link={episode.link} className='justify-start md:justify-center lg:justify-center'>
                 <span>{episode.number}</span>
-                <span className='title'>{episode.title}</span>
+                <span className='title block md:hidden lg:hidden'>{episode.title}</span>
               </Link>
             </li>
           )})}

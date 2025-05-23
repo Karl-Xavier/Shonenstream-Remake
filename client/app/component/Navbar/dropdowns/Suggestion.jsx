@@ -2,10 +2,10 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import './css/suggestion.css'
-//import { suggestionData } from '@/app/utils/rawData/suggestionData'
 import getSuggestion from '@/app/services/getSuggestion'
 import { getDisplayCategoryLink } from '@/app/utils/formatLink'
 import { ArrowRight } from 'phosphor-react'
+import { DotLoader, GridLoader } from 'react-spinners'
 
 export default function Suggestion({ query }) {
 
@@ -23,9 +23,9 @@ export default function Suggestion({ query }) {
 
         const data = await getSuggestion(query)
 
-        console.log(data)
+        const queryData = data.queryList
 
-        setSuggestionData(data)
+        setSuggestionData(queryData)
 
       }catch(err){
 
@@ -57,7 +57,7 @@ export default function Suggestion({ query }) {
   return (
     <div className='suggestion-box' id='suggestions'>
       <ul>
-        { loading && <p>Loading....</p> }
+        { loading && <div className='w-full h-auto flex justify-center items-center'><DotLoader size={15} color='#ee49fd' loading/></div> }
         {err && !loading && <span className='text-center text-[indianred] font-semibold block'>{err}</span>}
         {slicedSuggestion.map((suggest, index) => {
 
@@ -76,7 +76,7 @@ export default function Suggestion({ query }) {
         )})}
         {suggestionData.length > 12 && (
           <div className='w-full h-auto p-2 border-t-1 border-t-[lightgrey] flex flex-row justify-end'>
-            <Link href={`/search?query=${query}`} className='w-max flex flex-row justify-evenly items-center gap-4 bg-[#eee] text-[#121212] p-[5px] rounded font-bold'>SEE MORE <ArrowRight/></Link>
+            <Link href={`/search?query=${query}`} className='w-max flex flex-row justify-evenly items-center gap-4 text-[#eee] p-[5px] rounded font-bold'>SEE MORE <ArrowRight/></Link>
           </div>
         )}
       </ul>

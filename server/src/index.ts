@@ -1,8 +1,8 @@
 import express from 'express'
 import cors from 'cors'
-const connectDb = require('./config/db')
 import dotenv from 'dotenv'
 import path from 'path'
+import { dynamicProxy } from './middleware/dynamicProxy'
 
 dotenv.config()
 
@@ -32,16 +32,12 @@ app.use(express.json({ limit: '1gb' }))
 
 app.use('/static', express.static(path.join(__dirname, '..', 'static')))
 
-connectDb()
-
 app.get('/', (req, res) =>{
     res.send('Bonjour')
 })
 
 // Import all routes //
 
-
-const auth = require('./route/Auth')
 const home = require('./route/Home')
 const search = require('./route/Suggestion')
 const genre = require('./route/Genre')
@@ -53,7 +49,6 @@ const episodes = require('./route/Episodes')
 
 const img = require('./route/ProfilePicture')
 
-app.use('/api/auth', auth)
 app.use('/api', home)
 app.use('/api', search)
 app.use('/api', genre)
@@ -63,6 +58,8 @@ app.use('/api', feed)
 app.use(episodes)
 
 app.use(img)
+
+app.use('/proxy', dynamicProxy)
 
 app.listen(port, () => {
     console.log(`App Running on port ${port}`)

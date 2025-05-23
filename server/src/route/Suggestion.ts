@@ -27,16 +27,15 @@ router.get('/search', async (_req: Request, res: Response): Promise<any> => {
 
         let url: string = ''
 
-       if (!name) {
-        url = searchURL;
-    } else {
-        url = `${searchURL}?keyword=${name}`;
-
-        // Only add page param if it exists and is non-empty
-        if (pagequery && pagequery.trim() !== '') {
-            url += `&page=${pagequery}`;
+       if (!name && name === undefined) {
+            url = searchURL;
+        } else if(name && name !== undefined) {
+            url = `${searchURL}?keyword=${name}`
+            
+            if (pagequery && pagequery.trim() !== '') {
+                url += `&page=${pagequery}`;
+            }
         }
-    }
 
         const queryList: SearchItem[] = []
 
