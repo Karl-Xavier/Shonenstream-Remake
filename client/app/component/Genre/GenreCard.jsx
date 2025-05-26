@@ -4,11 +4,11 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import './css/genrecard.css'
-import { getDisplayWatchLink } from '@/app/utils/formatLink'
+import { getDisplayCategoryLink } from '@/app/utils/formatLink'
 
 export default function GenreCard({ card }) {
 
-  const formattedLink = getDisplayWatchLink(card.link)
+  const formattedLink = getDisplayCategoryLink(card.link)
 
   return (
     <li className='w-full h-[300px] genre-li'>

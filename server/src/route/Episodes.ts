@@ -12,6 +12,7 @@ interface EpisodeItem {
     link?: string;
     number?: string;
     animeId: string;
+    episodeId: string;
 }
 
 const proxy = new ProxyManager('./proxies.txt', 10 * 60 * 1000, 'https')
@@ -29,7 +30,7 @@ router.get('/api/episodes', async(req: Request, res: Response): Promise<any> => 
        const url = `https://miruro.tv/api/episodes?malId=${malID}`
 
        const response = await axios.get(url, {
-        httpAgent: proxy.getAgent(),
+        httpsAgent: proxy.getAgent(),
         timeout: 10000
        })
 
@@ -38,14 +39,23 @@ router.get('/api/episodes', async(req: Request, res: Response): Promise<any> => 
        const dataEpisode: any = Object.values(responseData.TMDB)[0]
        const animeId = Object.keys(responseData.ANIMEPAHE)[0]
        const kaiId = Object.keys(responseData.ANIMEKAI)[0]
+       const Zoro: any = Object.values(responseData.ZORO)[0]
+
+       let episodeId: any = []
+
+       Zoro.episodeList.episodes.forEach((identifier: any) => {
+            episodeId.push({episode: identifier.id})
+       })
 
        const linkURL = `/watch/${episodeName.toLowerCase().trim().replace(/\s+/g, '-').replace(/[^\w\-]+/g, '').replace(/\-\-+/g, '-')}-${kaiId}`
 
-       dataEpisode.metadata.episodes.forEach((episode: any) => {
+       dataEpisode.metadata.episodes.forEach((episode: any, index: any) => {
 
-        episodesList.push({ id: v4(), title: episode.title, link: `${linkURL}#ep=${episode.number}`, number: episode.number, animeId })
+        episodesList.push({ id: v4(), title: episode.title, link: `${linkURL}#ep=${episode.number}`, number: episode.number, animeId, episodeId: episodeId[index].episode })
 
        })
+
+       console.log(episodesList)
 
        return res.status(200).json(episodesList)
 

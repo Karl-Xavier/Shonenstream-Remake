@@ -1,0 +1,15 @@
+.comment-input textarea{
+  height: 38px;
+  max-height: 70px;
+}
+
+.comment-input textarea::-webkit-scrollbar{
+  width: 4px;
+  background: transparent;
+}
+
+.comment-input textarea::-webkit-scrollbar-thumb{
+  height: 4px;
+  background: #eee;
+  cursor: pointer;
+}

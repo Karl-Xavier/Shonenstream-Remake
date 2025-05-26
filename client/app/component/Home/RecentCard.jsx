@@ -5,11 +5,11 @@ import Link from 'next/link'
 import { Eye, Television } from 'phosphor-react'
 import React from 'react'
 import './css/recentcard.css'
-import { getDisplayWatchLink } from '@/app/utils/formatLink'
+import { getDisplayCategoryLink } from '@/app/utils/formatLink'
 
 export default function RecentCard({ recent }) {
 
-  const formattedLink = getDisplayWatchLink(recent.link)
+  const formattedLink = getDisplayCategoryLink(recent.link)
 
   return (
     <li data-id={recent.id} className='recent-li'>

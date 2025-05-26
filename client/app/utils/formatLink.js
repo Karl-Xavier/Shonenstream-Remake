@@ -4,7 +4,10 @@
 
   if(!match) return url
 
-  return `/watch/${match[1]}?episode=${match[2]}`
+  return {
+    title: match[1],
+    episode: match[2]
+  }
 
  }
 

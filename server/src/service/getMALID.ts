@@ -10,7 +10,7 @@ export default async function getMALID(animeName: string): Promise<any> {
   try {
 
     const response = await axios.get(url, {
-      httpAgent: proxy.getAgent(),
+      httpsAgent: proxy.getAgent(),
       timeout: 10000
     })
 

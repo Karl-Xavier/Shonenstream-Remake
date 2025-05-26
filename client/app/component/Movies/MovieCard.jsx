@@ -2,11 +2,11 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import './css/moviecard.css'
-import { getDisplayWatchLink } from '@/app/utils/formatLink'
+import { getDisplayCategoryLink } from '@/app/utils/formatLink'
 
 export default function MovieCard({ movie }) {
 
-  const formattedLink = getDisplayWatchLink(movie.link)
+  const formattedLink = getDisplayCategoryLink(movie.link)
 
   return (
     <li className='w-full h-[300px] movie-li'>

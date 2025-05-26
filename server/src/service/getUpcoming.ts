@@ -35,7 +35,7 @@ async function getUpComing(){
       headers: {
         'Content-Type': 'application/json'
       },
-      httpAgent: proxy.getAgent(),
+      httpsAgent: proxy.getAgent(),
       timeout: 10000,
     })
 

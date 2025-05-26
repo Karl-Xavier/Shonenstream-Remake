@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 const FetchHTML = require('../../config/Cheerio')
 import { v4 } from 'uuid'
+import { getRecentId } from "../../service/getRecentIds";
 
 const homeURL = 'https://animekai.to/home'
 
@@ -20,7 +21,7 @@ async function RecentController(req: Request, res: Response): Promise<any> {
 
         const animeList: AnimeListItem[] = []
 
-        $('.aitem').each((_index: any, element: any) => {
+        $('.aitem').each((index: any, element: any) => {
 
             const link = $(element).find('a.poster').attr('href')
             const title = $(element).find('.title').attr('title')

@@ -47,6 +47,8 @@ export default async function page({ params, searchParams }) {
     const categoryData = data.data ? data.data : data
 
     const episodes = episodeData
+
+    console.log(episodeData)
   
     return (
       <div><CategoryComponent categoryData={categoryData} episodeList={episodes}/></div>

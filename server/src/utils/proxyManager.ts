@@ -9,7 +9,7 @@ class ProxyManager {
     private protocol: string;
     private rotationIntervalMs: number
 
-    constructor(proxyFilePath: string, rotationIntervalMs = 10 * 60 * 1000, protocol = 'https') {
+    constructor(proxyFilePath: string, rotationIntervalMs = 10 * 60 * 1000, protocol = 'http') {
 
         this.rotationIntervalMs = rotationIntervalMs
         this.protocol = protocol
@@ -17,7 +17,7 @@ class ProxyManager {
          .split('\n')
          .map(p => p.trim())
          .filter(Boolean)
-         .map(p => ({ protocol: this.protocol, proxy: `https://${p}` }))
+         .map(p => ({ protocol: this.protocol, proxy: `http://${p}` }))
 
         this.currentIndex = 0
         this.agent = new HttpsProxyAgent(this.proxyList[this.currentIndex].proxy)

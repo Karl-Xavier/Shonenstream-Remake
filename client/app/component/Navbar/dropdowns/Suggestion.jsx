@@ -5,7 +5,7 @@ import './css/suggestion.css'
 import getSuggestion from '@/app/services/getSuggestion'
 import { getDisplayCategoryLink } from '@/app/utils/formatLink'
 import { ArrowRight } from 'phosphor-react'
-import { DotLoader, GridLoader } from 'react-spinners'
+import { DotLoader } from 'react-spinners'
 
 export default function Suggestion({ query }) {
 
@@ -23,9 +23,13 @@ export default function Suggestion({ query }) {
 
         const data = await getSuggestion(query)
 
-        const queryData = data.queryList
+        console.log(data)
+
+        const queryData = data.results
 
         setSuggestionData(queryData)
+
+        console.log(queryData)
 
       }catch(err){
 
@@ -52,6 +56,8 @@ export default function Suggestion({ query }) {
 
   }, [query])
 
+  console.log(suggestionData)
+
   const slicedSuggestion = suggestionData.length > 12 ? suggestionData.slice(0, 10) : suggestionData
 
   return (
@@ -69,7 +75,7 @@ export default function Suggestion({ query }) {
               <Image src={suggest.imgURL} width={100} height={100} alt={suggest.title}/>
               <div className="text-content-div">
                 <h3>{suggest.title}</h3>
-                <span>{suggest.episode}</span>
+                <span>{suggest.episode} Episode</span>
               </div>
             </Link>
           </li>

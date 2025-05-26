@@ -1,59 +1,34 @@
-import puppeteer, { Browser, Page } from "puppeteer"
-import { spawn } from "child_process"
-import path = require("path")
+import { Router, Request, Response } from "express";
+import { fetchSubSource } from "../service/fetchSrc/fetchSubSource";
+import { fetchDubSource } from "../service/fetchSrc/fetchDubSource";
 
-async function getIframeSRC(){
+const router = Router()
 
-    let chromeProcess
-    let browser: Browser
-
-   try{
-
-        console.log('Launching....')
-
-        const chromeExecutablePath = "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
-        const chromeArgs = [
-            `--remote-debugging-port=9222`,
-            `--user-data-dir=${path.join(__dirname, 'chrome_debug_profile')}`
-        ]
-
-        chromeProcess = spawn(chromeExecutablePath, chromeArgs, {
-            detached: true,
-            stdio: 'ignore'
-        })
-
-        console.log('Launched Chrome for remote debugging....')
-
-        await new Promise(resolve => setInterval(resolve, 2000))
-
-        browser = await puppeteer.connect({
-            browserURL: 'http://localhost:9222'
-        })
-
-        const page: Page = await browser.newPage()
-
-        page.on('request', request => {
-            console.log(request.method(), request.url())
-        })
-
-        page.on('console', msg => {
-            console.log(msg.text())
-        })
-
-        await page.goto('https://animekai.to/watch/solo-leveling-93rg#ep=1', { waitUntil: 'networkidle2', timeout: 0 })
-
-        await page.screenshot({ path: './screenshots/animeWatch.png', fullPage: true })
-
-        console.log('Screenshot Taken')
-
-        await browser.disconnect()
-
-    } catch(err: any){
-
-        console.log(err)
-
-    }
-
+interface WatchItem{
+    subSource: string | null;
+    dubSource: string | null;
 }
 
-//getIframeSRC()
+router.get('/watch', async (req: Request, res: Response): Promise<any> => {
+
+    const animeId: string = req.query.animeId as string
+    const episodeId: string = req.query.episodeId as string
+    const epiNum: string = req.query.num as string
+
+    try{
+
+        const subSource = await fetchSubSource(animeId, epiNum, episodeId)
+
+        const dubSource = await fetchDubSource(episodeId)
+
+        return res.status(200).json({ subSource, dubSource })
+
+    }catch(err: any){
+        console.log(err)
+
+        return res.status(500).json({ error: 'Server Error' })
+    }
+
+})
+
+module.exports = router
