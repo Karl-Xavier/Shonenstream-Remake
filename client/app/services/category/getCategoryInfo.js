@@ -4,11 +4,9 @@ const url = process.env.NEXT_PUBLIC_API_URL
 
 export default async function getCategoryInfo(link){
 
-  console.log(link)
+  const response = await axios.get(`${url}api/category/${link}#ep=1`)
 
-  const response = await axios.get(`${url}api/category/${link}`)
-
-  const responseData = await response.data
+  const responseData = response.data
 
   return responseData
 

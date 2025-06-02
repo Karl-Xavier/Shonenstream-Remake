@@ -13,7 +13,7 @@ export default function RecentCard({ recent }) {
 
   return (
     <li data-id={recent.id} className='recent-li'>
-      <Link href={formattedLink} data-og-link={recent.link}>
+      <Link href={{pathname: formattedLink, query: { og: encodeURIComponent(recent.link) }}} data-og-link={recent.link}>
         <div className="img-title">
           <Image src={recent.imgURL} alt={recent.title} width={100} height={100} className='img-poster' unoptimized/>
           <p className="title">{recent.title}</p>

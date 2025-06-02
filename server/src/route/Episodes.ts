@@ -49,7 +49,11 @@ router.get('/api/episodes', async(req: Request, res: Response): Promise<any> => 
 
        const linkURL = `/watch/${episodeName.toLowerCase().trim().replace(/\s+/g, '-').replace(/[^\w\-]+/g, '').replace(/\-\-+/g, '-')}-${kaiId}`
 
+       console.log(dataEpisode.metadata.episodes)
+
        dataEpisode.metadata.episodes.forEach((episode: any, index: any) => {
+
+        console.log(episodeId)
 
         episodesList.push({ id: v4(), title: episode.title, link: `${linkURL}#ep=${episode.number}`, number: episode.number, animeId, episodeId: episodeId[index].episode })
 

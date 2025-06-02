@@ -1,6 +1,7 @@
 import {Request, Response, Router} from 'express'
 import puppeteer from 'puppeteer'
 import getCategoryData from '../service/getCategoryData'
+import { getSeasons } from '../service/getRelatedSeasons'
 const FetchHTML = require('../config/Cheerio')
 const redisCachedData = require('../middleware/cacheData')
 
@@ -18,7 +19,9 @@ router.get('/category/:name', redisCachedData('category:'), async(_req: Request,
 
         const categoryItem = await getCategoryData(name)
 
-        return res.status(200).json(categoryItem)
+        const relatedSeasons = await getSeasons(name)
+
+        return res.status(200).json({categoryItem, relatedSeasons})
 
     } catch(err: any) {
         

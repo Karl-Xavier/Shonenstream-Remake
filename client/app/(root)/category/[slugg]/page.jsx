@@ -16,7 +16,7 @@ export async function generateMetadata({ searchParams }){
 
   const res = await getCategoryInfo(linkParams)
 
-  const data = res.data ? res.data : res
+  const data = res.data ? res.data.categoryItem : res.categoryItem
 
   return {
     title: `Watch ${data.title} Online | Shonenstream`,
@@ -29,32 +29,35 @@ export default async function page({ params, searchParams }) {
 
   const og = await searchParams
 
-  const { slug } = await params 
+  const { slugg } = await params 
 
   const ogURL = og.og || null
 
   const url = decodeURIComponent(ogURL || '')
 
-  const ogName = slug.split('-').map(word => word.charAt(0).toUpperCase()+word.slice(1)).join(' ')
+  const ogName = slugg.split('-').map(word => word.charAt(0).toUpperCase()+word.slice(1)).join(' ')
+
   const linkParams = url.replace('/watch/', '')
 
   try {
     
-    const data = await getCategoryInfo(linkParams)
+    const dataItem = await getCategoryInfo(linkParams)
 
     const episodeData = await getEpisodeList(ogName)
   
-    const categoryData = data.data ? data.data : data
+    const categoryData = data.data ? data.data.categoryItem : data.categoryItem
+
+   console.log(dataItem)
 
     const episodes = episodeData
-
-    console.log(episodeData)
   
     return (
       <div><CategoryComponent categoryData={categoryData} episodeList={episodes}/></div>
     )
 
   } catch (err) {
+
+    console.log(err)
     
     const errType = ['ReferenceError', 'TypeError', 'Error', 'AggregatorError']
 

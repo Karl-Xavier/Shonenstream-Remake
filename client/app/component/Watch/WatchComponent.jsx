@@ -12,6 +12,7 @@ import { useState } from 'react'
 export default function WatchComponent({ episodeList, watchData, title }) {
 
   const [ activeSelection, setActiveSelection ] = useState('sub')
+  const [currentSource, serCurrentSource] = useState(null)
 
   console.log(watchData)
 

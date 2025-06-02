@@ -1,15 +1,11 @@
 import { Router, Request, Response } from "express";
 import { fetchSubSource } from "../service/fetchSrc/fetchSubSource";
 import { fetchDubSource } from "../service/fetchSrc/fetchDubSource";
+const redisCachedData = require('../middleware/cacheData')
 
 const router = Router()
 
-interface WatchItem{
-    subSource: string | null;
-    dubSource: string | null;
-}
-
-router.get('/watch', async (req: Request, res: Response): Promise<any> => {
+router.get('/watch', redisCachedData('watch:'), async (req: Request, res: Response): Promise<any> => {
 
     const animeId: string = req.query.animeId as string
     const episodeId: string = req.query.episodeId as string
