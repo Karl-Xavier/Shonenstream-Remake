@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import jwt from 'jsonwebtoken'
+import { generateOTP } from '../../utils/generateOtp'
 const User = require('../../model/User')
 const VerificationMail = require('../../service/sendVerification')
 
@@ -16,11 +16,12 @@ async function NewTokenController(req: Request, res: Response): Promise<any>{
             return res.status(400).json({ error: 'This Email Account does not Exists' })
         }
 
-        const token = jwt.sign({ email: email, username: existingUser.username }, accessToken, { expiresIn: '15m' })
+        const token = generateOTP()
 
         await VerificationMail(email, token)
 
         existingUser.verificationToken = token
+        existingUser.tokenCreatedAt = Date.now()
 
         await existingUser.save()
 

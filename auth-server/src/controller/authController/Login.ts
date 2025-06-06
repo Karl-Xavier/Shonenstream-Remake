@@ -14,7 +14,6 @@ const jwt_secret: string = process.env.ACCESS_TOKEN_SECRET as string
 async function LoginController(req: Request, res: Response): Promise<any>{
 
     const { username, password } = req.body
-    const token: string = req.query.token as string
 
     const existingUser = await User.findOne({ username })
 
@@ -23,48 +22,14 @@ async function LoginController(req: Request, res: Response): Promise<any>{
         // Check if user exists
 
         if(!existingUser){
-            return res.status(401).json({ error: 'Account does not exists' })
-        }
-
-         // Check if there is a verification token
-
-        if(token){
-            try {
-                const decode = jwt.verify(token, jwt_secret)
-
-                // check if token matches stored token in database
-
-                if(existingUser.verificationToken !== token){
-                    return res.status(403).json({ error: 'Invalid Verification token' })
-                }
-
-                // Mark User as Verified and clear token
-
-                if(existingUser.isVerified === false){
-                    existingUser.isVerified = true
-                    existingUser.verificationToken = null
-
-                    await existingUser.save()
-                }
-            } catch(err: any) {
-
-                if(err.name === 'TokenExpiredError'){
-                    return res.status(401).json({ error: 'Verification Token Expired' })
-                }
-
-                return res.status(401).json({ error: 'Invalid Verification Token' })
-            }
+            return res.status(404).json({ error: 'Account does not exists' })
         }
 
         const isPasswordValid = await bcrypt.compare(password, existingUser.password)
 
-        // Check if password is valid
-
         if(!isPasswordValid){
             return res.status(401).json({ error: 'Wrong Password' })
         }
-
-        // Check if user is verified
 
         if(existingUser.isVerified === false){
             return res.status(401).json({ error: 'Please Verify your account to Login' })

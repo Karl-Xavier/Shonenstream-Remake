@@ -3,11 +3,7 @@ import { v4 } from 'uuid'
 
 const userSchema = new mongoose.Schema({
     userId: { type: String, default: v4() },
-    firstName: {
-        type: String,
-        required: true
-    },
-    lastName: {
+    fullName: {
         type: String,
         required: true
     },
@@ -37,7 +33,8 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
-    verificationToken: { type: String }
+    verificationToken: { type: String },
+    tokenCreatedAt: { type: Date }
 })
 
 const User = mongoose.model('user', userSchema)

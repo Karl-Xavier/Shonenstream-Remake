@@ -1,0 +1,86 @@
+.register-form{
+  height: auto;
+}
+
+.register-form .form-div{
+  height: 100%;
+  position: relative;
+  background: #242424;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.form-div .img-option{
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  display: block;
+  position: absolute;
+  top: -75px;
+  transform: translateX(-50%);
+  left: 50%;
+  margin-bottom: 50px;
+}
+
+.form-div .img-option img{
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.form-div .img-option span{
+  float: right;
+  position: relative;
+  bottom: 32px;
+  right: 15px;
+  color: #121212;
+}
+
+.form-area{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.form-area input{
+  width: 100%;
+  height: 40px;
+  border-bottom: 1px solid #643c7d;
+  background: #121212;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+.form-area .password-area{
+  width: 100%;
+  height: 40px;
+  padding: 10px;
+  border-bottom: 1px solid #643c7d;
+  background: #121212;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 10px;
+}
+
+.form-area .password-area input{
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.form-area button.submit-btn{
+  width: 100px;
+  padding: 10px;
+  background: #643c7d;
+  margin-bottom: 10px;
+  border-radius: 7px;
+  text-transform: uppercase;
+}

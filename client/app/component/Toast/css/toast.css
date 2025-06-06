@@ -1,0 +1,24 @@
+.toast-container{
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 12px 20px;
+  border-radius: 8px;
+  z-index: 9999;
+  user-select: none;
+}
+
+.toast-container .toast{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 5px;
+}
+
+@media screen and (max-width: 600px){
+  .toast-container{
+    right: 10px;
+    font-size: 13px;
+  }
+}

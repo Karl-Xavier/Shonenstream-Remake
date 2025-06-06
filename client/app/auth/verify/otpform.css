@@ -1,0 +1,23 @@
+.otp-form{
+  background: #242424;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.otp-form h2{
+  text-transform: uppercase;
+  font-size: 1.2rem;
+}
+
+.otp-form button{
+  width: 100px;
+  padding: 7px;
+  text-transform: uppercase;
+  outline: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background: #643c7d;
+}

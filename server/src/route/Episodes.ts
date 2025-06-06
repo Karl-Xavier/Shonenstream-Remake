@@ -29,10 +29,7 @@ router.get('/api/episodes', async(req: Request, res: Response): Promise<any> => 
 
        const url = `https://miruro.tv/api/episodes?malId=${malID}`
 
-       const response = await axios.get(url, {
-        httpsAgent: proxy.getAgent(),
-        timeout: 10000
-       })
+       const response = await axios.get(url)
 
        const responseData = await response.data
 

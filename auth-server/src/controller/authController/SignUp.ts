@@ -1,13 +1,14 @@
 import { Request, Response } from 'express'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
+import { generateOTP } from '../../utils/generateOtp'
 const User = require('../../model/User')
 const VerificationMail = require('../../service/sendVerification')
 
 async function SignUpController(req: Request, res: Response): Promise<any> {
-    const { firstName, lastName, username, email, password, profileImage } = req.body
+    const { fullName, username, email, password, profileImage } = req.body
 
-    const requiredData = { firstName, lastName, username, email, password }
+    const requiredData = { fullName, username, email, password }
 
     const hasEmptyFields = Object.values(requiredData).some((val) => val === undefined || val === '')
 
@@ -36,24 +37,24 @@ async function SignUpController(req: Request, res: Response): Promise<any> {
         const saltRounds = 12
         const hashedPassword = await bcrypt.hash(password, saltRounds)
 
-        const token = jwt.sign({ email, username }, accessToken, { expiresIn: '15m' })
+        const token = generateOTP()
 
         await VerificationMail(email, token)
 
         const newUser = new User({
-            firstName,
-            lastName,
+            fullName,
             username,
             email,
             password: hashedPassword,
             profileImage,
             isVerified: false,
-            verificationToken: token
+            verificationToken: token,
+            tokenCreatedAt: Date.now()
         })
 
         await newUser.save()
 
-        return res.status(201).json({ message: `Verification email has been sent` })
+        return res.status(201).json({ username })
 
     } catch(err: any) {
         console.log(err)

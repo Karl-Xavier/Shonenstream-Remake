@@ -15,10 +15,7 @@ export async function getRecentId(title: string, episode: string): Promise<Recen
     
     const malID = await getMALID(title)
 
-    const response = await axios.get(`https://miruro.tv/api/episodes?malId=${malID}`, {
-      httpAgent: proxy.getAgent(),
-      timeout: 10000
-    })
+    const response = await axios.get(`https://miruro.tv/api/episodes?malId=${malID}`)
 
     const responseData = await response.data
 

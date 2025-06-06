@@ -27,7 +27,7 @@ async function VerificationMail(email: string, token: string): Promise<any>{
             html: `
                 <h2>Welcome, Click on the Below Link to Verify your account</h2>
                 <p>This Email will lead you to the Login Page</p>
-                <p><a href="${frontendURL}auth/login?token=${token}" rel="noreferrer" target="_blank">Verify Email</a></p>
+                <p>Your Verification Token is ${token}</p>
             `
         }
 
