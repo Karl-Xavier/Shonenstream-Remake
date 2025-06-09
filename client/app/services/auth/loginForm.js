@@ -29,7 +29,7 @@ export async function loginForm(formData){
       }
     }
 
-    const response = await axios.post(`${url}/login`, formData, { withCredentials: true })
+    const response = await axios.post(`${url}auth/login`, formData, { withCredentials: true })
 
     const responseData = await response.data
 

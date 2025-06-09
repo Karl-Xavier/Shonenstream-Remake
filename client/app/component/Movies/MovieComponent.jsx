@@ -18,7 +18,7 @@ export default async function MovieComponent({ page }) {
 
     return (
       <div className='container p-2 mt-4 movies-container w-full h-auto'>
-        <ul className='grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-[20px] p-[20px]'>
+        <ul className='grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-[20px] p-[20px]'>
           {movieData.map((movie, index) => (
             <MovieCard movie={movie} key={index}/>
           ))}

@@ -45,7 +45,7 @@ export default async function page({ params, searchParams }) {
 
     const episodeData = await getEpisodeList(ogName)
   
-    const categoryData = data.data ? data.data.categoryItem : data.categoryItem
+    const categoryData = dataItem.data ? dataItem.data.categoryItem : dataItem.categoryItem
 
    console.log(dataItem)
 

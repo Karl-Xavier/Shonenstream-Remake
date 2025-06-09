@@ -15,7 +15,7 @@ export async function verifyToken(username, token){
       break;
    }
 
-   const response = await axios.post(`${url}/verify-token?token=${token}&username=${username}`, { withCredentials: true })
+   const response = await axios.post(`${url}auth/verify-token?token=${token}&username=${username}`, { withCredentials: true })
 
    const responseData = await response.data
 

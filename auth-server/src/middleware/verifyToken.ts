@@ -1,5 +1,8 @@
 import { Request, Response, NextFunction } from 'express'
 import jwt, { JwtPayload } from 'jsonwebtoken'
+import nodeEnv from '../config/nodeEnv'
+const User = require('../model/User')
+const { AccessToken } = require('../utils/CreateToken')
 
 export {}
 
@@ -11,30 +14,59 @@ declare global {
     }
 }
 
-const accessToken: string = process.env.ACCESS_TOKEN_SECRETm as string
+const accessToken: string = process.env.ACCESS_TOKEN_SECRET as string
 
-function verifyToken(req: Request, res: Response, next: NextFunction){
+async function verifyToken(req: Request, res: Response, next: NextFunction){
     
-    const authHeader: string = req.headers.refresh_secret as string
+    const token: string = req.cookies.access_secret as string
+    const refreshToken: string = req.cookies.refresh_secret as string
+    const id: string = req.cookies.user_key as string
 
-    if(authHeader){
-        
-        const token = authHeader.split(' ')[1]
+    if(token){
 
-        jwt.verify(token, accessToken, (err: any, user: any) => {
+        try{
 
-            if(err){
-                return res.status(401).json({ error: 'Token Expired' })
-            }
+            const decoded = jwt.verify(token, accessToken) as JwtPayload
 
-            req.user = user
-            next()
+            req.user = decoded
 
+            return next()
+
+        }catch(err){
+            return res.status(401).json({ error: 'Token Expired' })
+        }
+
+    }
+
+    if(!refreshToken || !id){
+        return res.status(401)
+    }
+
+    try{
+
+        const existingUser = await User.findOne({ userId: id })
+
+        if(!existingUser) return res.status(401)
+
+        const newAccessToken = AccessToken(existingUser)
+
+        const frontendURL = nodeEnv === 'production' ? 'myanimetv.vercel.app' : 'localhost'
+
+        res.cookie('access_secret', newAccessToken, {
+            httpOnly: true,
+            secure: nodeEnv === 'production',
+            domain: frontendURL,
+            sameSite: 'lax',
+            maxAge: 15 * 60 * 1000
         })
 
-    }else{
-        return res.status(403).json({ error: 'UnAuthorized' })
+        req.user = jwt.decode(newAccessToken) as JwtPayload
+
+        next()
+
+    }catch(err){
+        return res.status(401).json({ error: 'Token refresh Failed' })
     }
 }
 
-export default verifyToken
+module.exports = verifyToken

@@ -34,7 +34,9 @@ async function getUpComing(){
     const response = await axios.post('https://graphql.anilist.co', { query }, { 
       headers: {
         'Content-Type': 'application/json'
-      })
+      }
+    }
+    )
 
     const simplified = response.data.data.Page.media.map((anime: any) => ({
 

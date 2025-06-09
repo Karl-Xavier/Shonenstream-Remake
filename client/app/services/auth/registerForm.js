@@ -33,7 +33,7 @@ export async function submitForm(formData){
 
     try {
       
-      const response = await axios.post(`${url}/sign-up`, formData, { withCredentials: true })
+      const response = await axios.post(`${url}auth/sign-up`, formData, { withCredentials: true })
 
       const responseData = response.data
 

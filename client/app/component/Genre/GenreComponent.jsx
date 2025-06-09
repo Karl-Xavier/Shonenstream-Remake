@@ -21,7 +21,7 @@ export default async function GenreComponent({ page, genre }) {
     return (
       <div className='w-full h-auto container mt-4 p-2 genre-container'>
         <h2 className='ml-4 text-[18px] font-bold'>{formattedText} ANIME</h2>
-        <ul className='grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-[20px] p-[20px]'>
+        <ul className='grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-[20px] p-[20px]'>
           {genreData.map((genres, index) => (
             <GenreCard card={genres} key={index}/>
           ))}

@@ -3,13 +3,11 @@ import bcrypt from 'bcrypt'
 const User = require('../../model/User')
 const { AccessToken, RefreshToken } = require('../../utils/CreateToken')
 const nodeEnv = require('../../config/nodeEnv')
-import jwt from 'jsonwebtoken'
+import client from '../../config/redisConfig'
 
 // Define Frontend URL
 
 const frontendURL = nodeEnv === 'production' ? 'myanimetv.vercel.app' : 'localhost'
-
-const jwt_secret: string = process.env.ACCESS_TOKEN_SECRET as string
 
 async function LoginController(req: Request, res: Response): Promise<any>{
 
@@ -38,12 +36,20 @@ async function LoginController(req: Request, res: Response): Promise<any>{
         const access_token = AccessToken(existingUser)
         const refresh_token = RefreshToken(existingUser)
 
+        await client.setEx(`user:${existingUser.userId}`, 60 * 60 * 24 * 7, JSON.stringify({
+            name: existingUser.fullName,
+            email: existingUser.email,
+            avatar: existingUser.profileImage,
+            username: existingUser.username,
+            date: existingUser.created
+        }))
+
         res.cookie('access_secret', access_token, {
-            httpOnly: false,
+            httpOnly: true,
             secure: nodeEnv === 'production',
             domain: frontendURL,
             sameSite: 'lax',
-            path: '/'
+            maxAge: 15 * 60 * 1000
         })
 
         res.cookie('refresh_secret', refresh_token, {
@@ -53,7 +59,7 @@ async function LoginController(req: Request, res: Response): Promise<any>{
         })
 
         res.cookie('user_key', existingUser.userId, {
-            httpOnly: false,
+            httpOnly: true,
             secure: nodeEnv === 'production',
             domain: frontendURL,
             sameSite: 'lax',

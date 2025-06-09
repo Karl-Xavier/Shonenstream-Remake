@@ -1,11 +1,14 @@
-import express from "express";
+import express from "express"
 import cors from 'cors'
 import dotenv from 'dotenv'
-import connectDb from "./config/db";
+import connectDb from "./config/db"
+import cookieParser from "cookie-parser"
 
 dotenv.config()
 
 const app = express()
+
+app.use(cookieParser())
 
 app.use(express.json({ limit: '1gb' }))
 
@@ -28,8 +31,10 @@ connectDb()
 const port = process.env.PORT || 5001
 
 const auth = require('./routes/Auth')
+const user = require('./routes/Users')
 
 app.use('/api/auth', auth)
+app.use('/api/user', user)
 
 app.get('/', (req, res)=>{
   res.send('Auth Server')

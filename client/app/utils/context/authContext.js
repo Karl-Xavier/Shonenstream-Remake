@@ -2,6 +2,7 @@
 
 import React, { useState, createContext, useEffect, useContext } from 'react'
 import { useRouter } from 'next/navigation'
+import { getUserInfo } from '@/app/services/user/getUserInfo'
 
 const AuthContext = createContext()
 
@@ -15,21 +16,22 @@ export const AuthProvider = ({ children }) => {
 
   const [isAuthenticated, setIsAuthenticated] = useState(false)
 
-  useEffect(() => {
+  useEffect(async () => {
 
-    const storedUser = localStorage.getItem('currentUser')
+    const storedUser = await getUserInfo()
+
+    console.log(storedUser)
     
-    if(storedUser){
+    /* if(storedUser){
 
       setUser(JSON.parse(storedUser))
 
       setIsAuthenticated(true)
 
-    }
+    } */
   },[])
 
   const login = (userData) => {
-    localStorage.setItem('currentUser', JSON.stringify(userData))
 
     setUser(userData)
 

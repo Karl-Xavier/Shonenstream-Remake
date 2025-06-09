@@ -29,6 +29,11 @@ router.get('/search', async (_req: Request, res: Response): Promise<any> => {
 
        if (!name && name === undefined) {
             url = searchURL;
+
+            if(pagequery && pagequery.trim() !== ''){
+                url = `${searchURL}?page=${pagequery}`
+            }
+
         } else if(name && name !== undefined) {
             url = `${searchURL}?keyword=${name}`
             
@@ -36,6 +41,8 @@ router.get('/search', async (_req: Request, res: Response): Promise<any> => {
                 url += `&page=${pagequery}`;
             }
         }
+
+        console.log(url)
 
         const queryList: SearchItem[] = []
 
@@ -69,11 +76,17 @@ router.get('/search', async (_req: Request, res: Response): Promise<any> => {
         isPagination.each((index: any, element: any) => {
             const pageHref = $(element).find('li.page-item:last-child a').attr('href')
 
-            const url = new URL(pageHref)
+            if(pageHref){
+                const url = new URL(pageHref)
 
-            const pageNumber = url.searchParams.get('page')
+                const pageNumber = url.searchParams.get('page')
 
-            page = pageNumber
+                page = pageNumber
+            }else {
+                const lastPage = $(element).find('li.page-item:last-child span').text().trim()
+
+                page = lastPage
+            }
         })
 
        }else{
