@@ -7,7 +7,7 @@ const client = createClient(
   {
     url: redisURL,
     socket: {
-      connectTimeout: 10000
+      connectTimeout: 100000
     }
   }
 )

@@ -16,19 +16,24 @@ export const AuthProvider = ({ children }) => {
 
   const [isAuthenticated, setIsAuthenticated] = useState(false)
 
-  useEffect(async () => {
+  const [loading, setLoading] = useState(true)
 
-    const storedUser = await getUserInfo()
+  useEffect(() => {
 
-    console.log(storedUser)
-    
-    /* if(storedUser){
+      async function getSavedUser(){
+        const storedUser = await getUserInfo()
 
-      setUser(JSON.parse(storedUser))
+        if(!storedUser.error){
+         
+          setUser(storedUser)
 
-      setIsAuthenticated(true)
+          setIsAuthenticated(true)
+        }
+        setLoading(false)
+      }
 
-    } */
+      getSavedUser()
+
   },[])
 
   const login = (userData) => {
@@ -57,7 +62,7 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {}
 
   return (
-    <AuthContext.Provider value={{ user, isAuthenticated, login, logout, savedUsername, getSavedUsername, deleteUserName }}>
+    <AuthContext.Provider value={{ user, isAuthenticated, login, logout, savedUsername, getSavedUsername, deleteUserName, loading }}>
       {children}
     </AuthContext.Provider>
   )

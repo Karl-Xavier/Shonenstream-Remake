@@ -5,10 +5,13 @@ import CommentList from './CommentList'
 import { buildCommentTree } from '@/app/utils/buildComment'
 import InputButton from './InputButton'
 import './css/commentwrapper.css'
+import { useAuth } from '@/app/utils/context/authContext'
 
 export default function CommentWrapper({ flatComment }) {
 
   const [tree, setTree] = useState([])
+
+  const { isAuthenticated } = useAuth()
 
   useEffect(()=> {
     const structured = buildCommentTree(flatComment)
@@ -21,7 +24,7 @@ export default function CommentWrapper({ flatComment }) {
      <section className="w-full h-[500px] overflow-auto comments-wrapper">
        <CommentList comments={tree}/>
      </section>
-     <InputButton/>
+     {isAuthenticated ? <InputButton/> : <p className=''>Login to Comment</p>}
    </div>
   )
 }

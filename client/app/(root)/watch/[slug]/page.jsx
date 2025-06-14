@@ -3,6 +3,21 @@ import getEpisodeList from '@/app/services/getEpisodes'
 import { getWatchSource } from '@/app/services/watch/getSources'
 import React from 'react'
 
+export async function generateMetadata({ params, searchParams }){
+
+  const { slug } = await params
+
+  const originalName = slug.split('-').map(word => word.charAt(0).toUpperCase()+word.slice(1)).join(' ')
+
+  const searchParameter = await searchParams
+
+  const episodeNumber = searchParameter.episode
+
+  return {
+    title: `Watch ${originalName} Episode ${episodeNumber} for free on Shonenstream`
+  }
+}
+
 export default async function page({ params, searchParams }) {
 
   try{
@@ -20,16 +35,18 @@ export default async function page({ params, searchParams }) {
   
     const episodeId = search.episodeId
 
-    const watchSource = await getWatchSource(episodeNum, animeId, episodeId)
+  //   const watchSource = await getWatchSource(episodeNum, animeId, episodeId)
 
-    console.log(watchSource)
+  //   console.log(watchSource)
 
-    const episode = await getEpisodeList(ogName)
+  //   const episode = await getEpisodeList(ogName)
 
-    const title = `${ogName} Episode ${episodeNum}`
+  //   const title = `${ogName} Episode ${episodeNum}`
+
+  // episodeList={episode} watchData={watchSource} title={title}
   
     return (
-      <div><WatchComponent episodeList={episode} watchData={watchSource} title={title}/></div>
+      <div><WatchComponent /></div>
     )
 
   }catch(err){

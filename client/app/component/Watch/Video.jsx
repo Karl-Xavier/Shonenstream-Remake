@@ -18,34 +18,34 @@ export default function Video({ src }) {
   const [duration, setDuration] = useState(0)
   const [ showPlayBackDiv, setShowPlayBackDiv ] = useState(false)
   const [ volumeValue, setVolumeValue ] = useState(1)
-  const [isFullscreen, setFullScreen] = useState(false)
+  const [isScreen, setScreen] = useState(false)
 
   const videoRef = useRef(null)
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    const video = videoRef.current
+  //   const video = videoRef.current
 
-    console.log(video, null)
+  //   console.log(video, null)
 
-    const hls = new Hls()
+  //   const hls = new Hls()
 
-    const streamURL = `${backendURL}proxy?url=${src}`
+  //   const streamURL = `${backendURL}proxy?url=${src}`
 
-    hls.loadSource(`${backendURL}static/vid.mp4`)
+  //   hls.loadSource(`${backendURL}static/vid.mp4`)
 
-    hls.attachMedia(video)
+  //   hls.attachMedia(video)
 
-    hls.on(Hls.Events.MANIFEST_PARSED, () => {
-      video.play()
-      console.log('video is playing....')
-    })
+  //   hls.on(Hls.Events.MANIFEST_PARSED, () => {
+  //     video.play()
+  //     console.log('video is playing....')
+  //   })
 
-    return () => {
-      hls.destroy()
-    }
+  //   return () => {
+  //     hls.destroy()
+  //   }
 
-  }, [])
+  // }, [])
 
   useEffect(() => {
 
@@ -125,12 +125,20 @@ export default function Video({ src }) {
     }
   }
 
+  function onMouseEnterCtrl(){
+    setScreen(true)
+  }
+
+  function onMouseLeaveCtrl(){
+    setScreen(false)
+  }
+
 //src={`${backendURL}static/vid.mp4`}
 
   return (
-    <div className="video_player mt-3 w-full h-[300px] md:h-[400px] relative outline-none bg-black">
-      <video ref={videoRef} controls={false} onContextMenu={(e) => e.preventDefault()} className='video w-full relative h-full' ></video>
-      <div className="progressArea">
+    <div className="video_player mt-3 w-full h-[300px] md:h-[400px] relative outline-none bg-black" onMouseEnter={onMouseEnterCtrl} onMouseLeave={onMouseLeaveCtrl}>
+      <video ref={videoRef} src={`${backendURL}static/vid.mp4`} controls={false} onContextMenu={(e) => e.preventDefault()} className='video w-full relative h-full' ></video>
+      {isScreen && <div className="progressArea">
         <div className="controls cursor-pointer">
           <div className="progress-area" onClick={handleSeek}>
             <div className='progress-bar' style={{ width: `${progress}%` }}>
@@ -165,7 +173,7 @@ export default function Video({ src }) {
             </ul>
           </div>}
         </div>
-      </div>
+      </div>}
     </div>
   )
 }

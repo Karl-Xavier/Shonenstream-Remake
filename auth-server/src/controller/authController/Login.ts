@@ -36,6 +36,14 @@ async function LoginController(req: Request, res: Response): Promise<any>{
         const access_token = AccessToken(existingUser)
         const refresh_token = RefreshToken(existingUser)
 
+        const userData = {
+            name: existingUser.fullName,
+            email: existingUser.email,
+            avatar: existingUser.profileImage,
+            username: existingUser.username,
+            date: existingUser.created
+        }
+
         await client.setEx(`user:${existingUser.userId}`, 60 * 60 * 24 * 7, JSON.stringify({
             name: existingUser.fullName,
             email: existingUser.email,
@@ -63,10 +71,10 @@ async function LoginController(req: Request, res: Response): Promise<any>{
             secure: nodeEnv === 'production',
             domain: frontendURL,
             sameSite: 'lax',
-            path: '/'
+            maxAge: 7 * 24 * 60 * 60 * 1000
         })
 
-        return res.status(201).json({ message: 'Login Successful', userData: existingUser })
+        return res.status(201).json({ message: 'Login Successful', userData })
 
     } catch(err) {
         console.log(err)

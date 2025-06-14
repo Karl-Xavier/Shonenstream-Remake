@@ -4,16 +4,6 @@
   position: relative;
 }
 
-.comment-li::before{
-  content: '';
-  position: absolute;
-  top: 35px;
-  left: 0;
-  width: 15px;
-  height: 1px;
-  background: lightslategray;
-}
-
 .comment-li .head{
   width: max-content;
   padding: 10px;
@@ -21,4 +11,9 @@
 
 .comment-li .head img{
   border-radius: 50%;
+}
+
+.comment-actions button{
+  cursor: pointer;
+  outline: none;
 }

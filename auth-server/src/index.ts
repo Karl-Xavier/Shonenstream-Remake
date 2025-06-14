@@ -32,9 +32,11 @@ const port = process.env.PORT || 5001
 
 const auth = require('./routes/Auth')
 const user = require('./routes/Users')
+const comment = require('./routes/Comments')
 
 app.use('/api/auth', auth)
 app.use('/api/user', user)
+app.use('/api/comment', comment)
 
 app.get('/', (req, res)=>{
   res.send('Auth Server')

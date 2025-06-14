@@ -54,7 +54,7 @@ async function SignUpController(req: Request, res: Response): Promise<any> {
 
         await newUser.save()
 
-        return res.status(201).json({ username })
+        return res.status(200).json({ username })
 
     } catch(err: any) {
         console.log(err)
