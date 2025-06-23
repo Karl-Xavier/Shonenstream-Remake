@@ -26,7 +26,7 @@ async function ResetEmail(email: string, token: string): Promise<any>{
             subject: 'Account Recovery',
             html: `
                 <p>Click on the link below if it doesn't open, copy it and paste in your browser</p>
-                <a href='${frontendURL}auth/change-password?token=${token}&for=${email}'></a>
+                <a href='${frontendURL}auth/change-password?token=${token}&for=${email}'>${frontendRL}auth/change-password?token=${token}&for=${email}</a>
             `
         }
 
