@@ -35,18 +35,14 @@ export default async function page({ params, searchParams }) {
   
     const episodeId = search.episodeId
 
-  //   const watchSource = await getWatchSource(episodeNum, animeId, episodeId)
+    const watchSource = await getWatchSource(episodeNum, animeId, episodeId)
 
-  //   console.log(watchSource)
+    const episode = await getEpisodeList(ogName)
 
-  //   const episode = await getEpisodeList(ogName)
-
-  //   const title = `${ogName} Episode ${episodeNum}`
-
-  // episodeList={episode} watchData={watchSource} title={title}
+    const title = `${ogName} Episode ${episodeNum}`
   
     return (
-      <div><WatchComponent /></div>
+      <div><WatchComponent episodeList={episode} watchData={watchSource} title={title}/></div>
     )
 
   }catch(err){

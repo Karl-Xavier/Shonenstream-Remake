@@ -6,7 +6,7 @@ export async function getComments(name){
 
   try{
 
-    const response = await axios.get(`${url}comment/get-comments?name=${name}`)
+    const response = await axios.get(`${url}comment/get-comments?name=${name}`, { withCredentials: true })
 
     const responseData = await response.data
 

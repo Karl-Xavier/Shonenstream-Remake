@@ -1,43 +1,42 @@
-## BACKEND REMAKE FOR SHONENSTREAM
+# Shonenstream - Scraper Server (Main)
 
-## WHAT I DID DIFFERENT FROM THE PREVIOUS BACKEND ?
+This server scrapes anime data from third-party websites and provides clean APIs for the frontend. There are cases where i integrated another's websites API. but i plan to change that in the future.
 
-First of all This project is open source, so you who is not a potential client or not interested in hiring but you are developer. You can make this project better. Please incase you make ay=ny changes give a good note of what you implemented, changed or added. Also message me. I am writing this thinking that this website becomes the best anime platform 😎😎😎😎😎😎.
+## FEATURES
 
-Now what i did differently are
+- Scrapes Anime Details (Episodes, Links, Streaming Links, Genres, Search Results e.t.c) and Stores it in Redis for quick access
+- Proxy support for `.m3u8` video links to avoid CORS
+- Returns JSON data optimized for frontend rendering
+- Caching data in Memory for an hour for quick access
 
-IMPLEMENTED, ADDED AND CHANGED
+## TECH STACK
 
-## A: AUTHENTICATION
+- Node.js
+- Express
+- Typescript
+- Cheerio
+- Axios
+- CORS
+- dotenv
+- UUID
+- Redis
+- Http-Proxy-middleware
 
-I changed authentication methods, I was previously using firebase for authentication on the server and it caused so much bugs, well because of my incompetence and little knowledge i had regarding authentication on the server using firebase. So i changed to JWT. What i gained from changing are,
+```bash
 
-1. Less Code
-2. Easy Setup
-3. More Secure Authentication method
+git clone https://github.com/Karl-Xavier/Shonenstream-Remake.git
 
-## B: ADDED CONTROLLERS
+cd server
 
-You see I prefer having many folders than looking at an auth.js file with 300+ lines of code 🥴, is just stressful. Adding Controllers also help when debugging my code, So if i get an error during login, instead of scrolling through lines of code in my auth.js file looking for the login route, i could just simply go to the Login.ts in auth controller and find the error there.
+npm install
 
-## C: ADDED REDIS CACHE
+npm run dev
+```
 
-                _._
-           _.-`` __ ''-._
-      _.-``    `.  `_.  ''-._
-  .-`` .-```.  ```\/    _.,_ ''-._
- (    '      ,       .-`    `,    )
- |`-._`-...-` __...-.``-._ '` _.-'|
- |    `-._   `._    /     _.-'    |
-  `-._    `-._  `-./  _.-'    _.-'              N:B ---->  I COPIED THIS FROM MY TERMINAL JUST TO BEAUTIFY MY README FILE
- |`-._`-._    `-.__.-'    _.-'_.-'|
- |    `-._`-._        _.-'_.-'    |
-  `-._    `-._`-.__.-'_.-'    _.-'
- |`-._`-._    `-.__.-'    _.-'_.-'|
- |    `-._`-._        _.-'_.-'    |
-  `-._    `-._`-.__.-'_.-'    _.-'
-      `-._    `-.__.-'    _.-'
-          `-._        _.-'
-              `-.__.-'
+### ENVIRONMENT VARIABLE
 
-See i won't lie i am happy i learnt redis
+- REDIS_URL = 'leave empty'
+
+# EXTRA NOTE
+
+When you work on the project please right what you worked and the file name in the addedOrRemoved.txt

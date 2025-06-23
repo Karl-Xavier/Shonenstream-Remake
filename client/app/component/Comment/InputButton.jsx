@@ -24,16 +24,15 @@ export default function InputButton() {
     }catch(err){
       console.log(err)
     }
-
-    console.log('Message Sent')
-
-    setContent(' ')
   }
 
   return (
     <div className='comment-input w-full h-auto flex flex-row justify-between items-center bg-[#292929] p-2 rounded-lg gap-2'>
       <textarea name="comment-input" id="comment_input" placeholder='Write Something....' className='w-full outline-none' onChange={(e) => setContent(e.target.value)} value={content}></textarea>
-      <button className='w-[75px] h-max p-2 bg-[#643c7d] rounded-lg outline-none cursor-pointer' onClick={handleSubmitComment}>Send</button>
+      <button className='w-[75px] h-max p-2 bg-[#643c7d] rounded-lg outline-none cursor-pointer' onClick={() => {
+        handleSubmitComment()
+        setContent('')
+      }}>Send</button>
     </div>
   )
 }

@@ -8,7 +8,7 @@ import { Calendar, Circle, Tag } from 'phosphor-react'
 import './css/categorycomponent.css'
 import Episode from '../Episode/Episode'
 
-export default function CategoryComponent({ categoryData, episodeList }) {
+export default function CategoryComponent({ categoryData, episodeList, relatedSeason }) {
   return (
     <div className='mt-4 p-4 w-full h-auto grid grid-cols-1 lg:grid-cols-[4fr_2fr] gap-3'>
       <section className="right-content" >
@@ -29,6 +29,15 @@ export default function CategoryComponent({ categoryData, episodeList }) {
         <p className='date text-[14px] md:text-[16px]'><span className='first'><Calendar size={16}/> Release Date:&nbsp;&nbsp;</span><small>{categoryData.releaseDate}</small></p>
         <p className='status text-[14px] md:text-[16px]'><span className='first'><Circle size={16} weight='fill' color={categoryData.status.toLowerCase() === 'releasing' ? 'orange' : categoryData.status.toLowerCase() === 'completed' ? 'green' : 'indianred'}/> Current Status:&nbsp;&nbsp;</span><small>{categoryData.status}</small></p>
         <p className="slug-description">{categoryData.description}</p>
+        {relatedSeason.length > 0 && (
+          <div className="related-seasons flex flex-row overflow-x-auto">
+            {relatedSeason.map((related, index) => (
+              <Link href={''}>
+                //
+              </Link>
+            ))}
+          </div>
+        )}
       </section>
       <Episode episodeList={episodeList}/>
     </div>

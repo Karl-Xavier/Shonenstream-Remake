@@ -1,0 +1,3 @@
+Hello My Name is Nnaemeka Uwasomba Joshua this is the Shonenstream Frontend, you can also work on the Backend (auth server / main server). Also leave your name in the Contributors.txt after you have successfully made a change and pushed it.
+
+I Made the Whole Projet

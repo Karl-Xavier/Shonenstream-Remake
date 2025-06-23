@@ -68,7 +68,7 @@ export default function LoginForm() {
       </div>
         <button className='login-btn' disabled={loading}>{ loading ? <PacmanLoader size={12} color='#eee'/> : 'Login'}</button>
 
-      <p>Don't Have an Account? <Link href={'/auth/register'}>Sign Up</Link></p>
+      <p>Don't Have an Account? <Link href={'/auth/register'} className='text-[#643c7d]'>Sign Up</Link></p>
       {toast.message !== null && <Toast message={toast.message} type={toast.type} closeToast={() => setToast({ message: null, type: null })}/>}
     </form>
   )

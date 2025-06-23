@@ -22,7 +22,7 @@ export default function OTPForm() {
   })
   const [loading, setLoading] = useState(false)
 
-  function handleChange(otp){
+  function handleChange(){
     setOtp(otp)
   }
 

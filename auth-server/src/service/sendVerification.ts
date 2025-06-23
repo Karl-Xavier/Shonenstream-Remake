@@ -25,16 +25,12 @@ async function VerificationMail(email: string, token: string): Promise<any>{
             to: email,
             subject: 'Verify your Account',
             html: `
-                <h2>Welcome, Click on the Below Link to Verify your account</h2>
-                <p>This Email will lead you to the Login Page</p>
+                <h2>Welcome, Copy the Token Below to Verify your account</h2>
                 <p>Your Verification Token is ${token}</p>
             `
         }
 
         await transporter.sendMail(mailOptions)
-
-        console.log('Email Sent to', email)
-        console.log(`${frontendURL}auth/login?token=${token}`)
 
     } catch(err) {
         console.log(err)

@@ -2,6 +2,7 @@ import { Request, Response } from 'express'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import { generateOTP } from '../../utils/generateOtp'
+import { saveAsBase64 } from '../../utils/saveAsBase64Image'
 const User = require('../../model/User')
 const VerificationMail = require('../../service/sendVerification')
 
@@ -39,6 +40,8 @@ async function SignUpController(req: Request, res: Response): Promise<any> {
 
         const token = generateOTP()
 
+        const profileImageUrl = await saveAsBase64(profileImage)
+
         await VerificationMail(email, token)
 
         const newUser = new User({
@@ -46,7 +49,7 @@ async function SignUpController(req: Request, res: Response): Promise<any> {
             username,
             email,
             password: hashedPassword,
-            profileImage,
+            profileImage: profileImageUrl,
             isVerified: false,
             verificationToken: token,
             tokenCreatedAt: Date.now()

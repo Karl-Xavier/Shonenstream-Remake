@@ -45,9 +45,18 @@ export default function Form() {
     const file = e.target.files[0]
 
     if(file && file.type.startsWith('image/')){
-      const url = URL.createObjectURL(file)
-      setImg(url)
-      console.log(url)
+
+      const maxSize = 600 * 1024
+
+      if(file.size < maxSize){
+
+        const url = URL.createObjectURL(file)
+        setImg(url)
+
+      }else{
+        setImg(null)
+      }
+      
     }else {
       setImg(null)
     }
@@ -57,13 +66,23 @@ export default function Form() {
     const file = e.target.files[0]
 
     if(file && file.type.startsWith('image/')){
-      const reader = new FileReader()
 
-      reader.onloadend = () => {
-        setFormData({ ...formData, profileImage: reader.result })
+      const maxSize = 600 * 1024
+
+      if(file.size < maxSize){
+        const reader = new FileReader()
+
+        reader.onloadend = () => {
+          setFormData({ ...formData, profileImage: reader.result })
+        }
+
+        reader.readAsDataURL(file)
+      }else {
+        setToast({
+          message: 'Image Size Exceeds 500kb',
+          type: 'error'
+        })
       }
-
-      reader.readAsDataURL(file)
     }
   }
 

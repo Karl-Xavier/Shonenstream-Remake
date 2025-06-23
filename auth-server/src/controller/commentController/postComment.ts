@@ -5,9 +5,8 @@ const User = require('../../model/User')
 async function PostCommentController(req: Request, res: Response){
 
   const id = req.cookies.user_key
-  const { content, name } = req.body
-  const parentId: string | null = req.query.respond as string | null
-
+  const { content, name, replyTo } = req.body
+  
   try {
 
     if(!id) return res.status(401)
@@ -24,10 +23,10 @@ async function PostCommentController(req: Request, res: Response){
 
     const newComment = new Comment({
       userId: id,
-      author: existingUser.fullName,
+      author: existingUser.username,
       content,
       profileImage: existingUser.profileImage,
-      parentId,
+      parentId: replyTo === undefined ? null : replyTo,
       name
     })
 

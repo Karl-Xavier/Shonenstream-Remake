@@ -1,0 +1,38 @@
+.reset-form{
+  background: #242424;
+  padding: 10px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+}
+
+.reset-form h2{
+  text-transform: uppercase;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.reset-form input{
+  width: 100%;
+  padding: 10px;
+  outline: none;
+  background: #121212;
+  border-bottom: 1px solid #643c7d;
+}
+
+.reset-form button{
+  text-transform: uppercase;
+  background: #643c7d;
+  border-radius: 5px;
+  width: 120px;
+  outline: none;
+  height: 44px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}

@@ -8,8 +8,8 @@ const mongodbURI = nodeEnv === 'production' ? prod_url : 'mongodb://localhost:27
 const connectDb = async()=>{
   try {
     await mongoose.connect(mongodbURI, {
-      connectTimeoutMS: 120000,
-      serverSelectionTimeoutMS: 120000
+      connectTimeoutMS: 1200000,
+      serverSelectionTimeoutMS: 1200000
     })
 
     console.log('Connected to Database')

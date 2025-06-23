@@ -20,7 +20,23 @@ export async function generateMetadata({ searchParams }){
 
   return {
     title: `Watch ${data.title} Online | Shonenstream`,
-    description: `${data.description}`
+    description: `${data.description}`,
+    openGraph: {
+      title: `Watch ${data.title} Online | Shonenstream`,
+      description: `${data.description}`,
+      images: [
+        {
+          url: data.imgURL,
+          alt: `${data.title}`
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `Watch ${data.title} Online | Shonenstream`,
+      description: `${data.description}`,
+      images: [data.imgURL]
+    }
   }
 
 }
@@ -46,6 +62,8 @@ export default async function page({ params, searchParams }) {
     const episodeData = await getEpisodeList(ogName)
   
     const categoryData = dataItem.data ? dataItem.data.categoryItem : dataItem.categoryItem
+
+    const relatedSeason = dataItem.data ? dataItem.data.relatedSeasons : dataItem.relatedSeasons
 
    console.log(dataItem)
 

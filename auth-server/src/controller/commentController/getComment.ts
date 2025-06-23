@@ -5,6 +5,8 @@ async function getComments(req: Request, res: Response){
 
   const name: string = req.query.name as string
 
+  const userId = req.cookies.user_key
+
   try{
 
     if(!name){
@@ -13,7 +15,14 @@ async function getComments(req: Request, res: Response){
 
     const allComments = await Comment.find({ name }).sort({ _id: -1 })
 
-    return res.status(200).json(allComments)
+    const results = allComments.map((comment: any) => ({
+      ...comment.toObject(),
+      isLikedByCurrentUser: comment.likes.includes(userId),
+      isDisLikedByCurrentUser: comment.dislikes.includes(userId),
+      isUserComment: comment.userId === userId
+    }))
+
+    return res.status(200).json(results)
 
   }catch(err: any){
     console.log(err)

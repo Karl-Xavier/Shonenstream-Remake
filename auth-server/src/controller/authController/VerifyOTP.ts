@@ -28,7 +28,7 @@ async function VerifyTokenController(req: Request, res: Response): Promise<any>{
     const hasExpired = isTokenExpired(createdTime)
 
     if(hasExpired){
-      return res.status(401).json({ error: 'Token Expired Request new Token' })
+      return res.status(401).json({ error: 'Token Expired Request new Token', tokenExpired: hasExpired })
     }
 
     existingUser.verificationToken = ''

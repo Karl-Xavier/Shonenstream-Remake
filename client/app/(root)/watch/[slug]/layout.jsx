@@ -1,7 +1,7 @@
 import React from 'react'
 
 export const metadata = {
-  description: 'Stream and Download Anime for fre on Shonenstream'
+  description: 'Stream and Download Anime for free on Shonenstream'
 }
 
 export default function layout({ children }) {

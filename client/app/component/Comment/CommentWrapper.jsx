@@ -24,7 +24,7 @@ export default function CommentWrapper({ flatComment }) {
      <section className="w-full h-[500px] overflow-auto comments-wrapper">
        <CommentList comments={tree}/>
      </section>
-     {isAuthenticated ? <InputButton/> : <p className=''>Login to Comment</p>}
+     {isAuthenticated ? <InputButton /> : <p className=''>Login to Comment</p>}
    </div>
   )
 }

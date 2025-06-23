@@ -50,7 +50,7 @@ router.get('/api/episodes', async(req: Request, res: Response): Promise<any> => 
 
        dataEpisode.metadata.episodes.forEach((episode: any, index: any) => {
 
-        console.log(episodeId)
+        console.log(episodeId.length)
 
         episodesList.push({ id: v4(), title: episode.title, link: `${linkURL}#ep=${episode.number}`, number: episode.number, animeId, episodeId: episodeId[index].episode })
 
